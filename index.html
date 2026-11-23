@@ -1,0 +1,1712 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CTF 101 — Your First Steps Into Cybersecurity</title>
+<meta name="description" content="An interactive, beginner-friendly introduction to Capture The Flag (CTF) competitions for university students.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2336e2ea' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 21V4M5 4h11l-2 4 2 4H5'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body data-docs-base="https://github.com/hiba-msm/ctf-101-workshop/blob/main/">
+
+<!-- ============ ICON SPRITE (hand-drawn 24×24 stroke icons) ============ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/></symbol>
+  <symbol id="i-msg" viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-5-5"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-9 9"/></symbol>
+  <symbol id="i-terminal" viewBox="0 0 24 24"><rect x="2.5" y="4" width="19" height="16" rx="2"/><path d="M7 9l3 3-3 3M12.5 15H17"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></symbol>
+  <symbol id="i-network" viewBox="0 0 24 24"><rect x="9" y="2.5" width="6" height="5" rx="1"/><rect x="2.5" y="16.5" width="6" height="5" rx="1"/><rect x="15.5" y="16.5" width="6" height="5" rx="1"/><path d="M12 7.5V12M5.5 16.5V12h13v4.5"/></symbol>
+  <symbol id="i-cpu" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="1.5"/><rect x="9.5" y="9.5" width="5" height="5"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></symbol>
+  <symbol id="i-bug" viewBox="0 0 24 24"><rect x="7" y="8" width="10" height="12" rx="5"/><path d="M12 11v9M9 8a3 3 0 0 1 6 0M3 13h4M17 13h4M4 7l3 2M20 7l-3 2M4 19l3-2M20 19l-3-2"/></symbol>
+  <symbol id="i-puzzle" viewBox="0 0 24 24"><path d="M4 7h4a2 2 0 1 1 4 0h4v4a2 2 0 1 1 0 4v4h-4a2 2 0 1 0-4 0H4v-4a2 2 0 1 0 0-4z"/></symbol>
+  <symbol id="i-key" viewBox="0 0 24 24"><circle cx="7.5" cy="15.5" r="4.5"/><path d="M10.7 12.3L20 3M16 7l3 3M14 9l2 2"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><circle cx="17" cy="9" r="2.8"/><path d="M16.5 14.2A5.5 5.5 0 0 1 21.5 20"/></symbol>
+  <symbol id="i-trophy" viewBox="0 0 24 24"><path d="M8 4h8v5a4 4 0 0 1-8 0zM8 6H4.5a3 3 0 0 0 3.5 4M16 6h3.5A3 3 0 0 1 16 10M12 13v4M9.5 17h5v4h-5zM7 21h10"/></symbol>
+  <symbol id="i-briefcase" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2M3 13h18"/></symbol>
+  <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2V16h5v-.1c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z"/></symbol>
+  <symbol id="i-arrow-r" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-arrow-l" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h14v16H6a2 2 0 0 0-2 2zM4 21V5M8 7h8"/></symbol>
+  <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
+  <symbol id="i-camera" viewBox="0 0 24 24"><path d="M3 8a2 2 0 0 1 2-2h2.5L9 4h6l1.5 2H19a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><circle cx="12" cy="13" r="3.5"/></symbol>
+  <symbol id="i-hash" viewBox="0 0 24 24"><path d="M5 9h15M4 15h15M10 3L8 21M16 3l-2 18"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/></symbol>
+  <symbol id="i-server" viewBox="0 0 24 24"><rect x="3" y="3.5" width="18" height="7" rx="1.5"/><rect x="3" y="13.5" width="18" height="7" rx="1.5"/><path d="M7 7h.01M7 17h.01"/></symbol>
+  <symbol id="i-code" viewBox="0 0 24 24"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></symbol>
+  <symbol id="i-toolbox" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M8 8V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18M10 13v2h4v-2"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M4 20h16"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></symbol>
+  <symbol id="i-finger" viewBox="0 0 24 24"><path d="M7 11a5 5 0 0 1 10 0v2M12 11v4a6 6 0 0 1-2 4.5M9 14.5a9 9 0 0 1-.5 4M15 14v1a10 10 0 0 1-1 4.5M4.5 9a8 8 0 0 1 15 0M4 13.5a8.5 8.5 0 0 0 .5 2.5"/></symbol>
+  <symbol id="i-ext" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/></symbol>
+  <symbol id="i-siren" viewBox="0 0 24 24"><path d="M6 18v-6a6 6 0 0 1 12 0v6M4 18h16v3H4zM12 2v2M4 6l1.5 1.5M20 6l-1.5 1.5"/></symbol>
+  <symbol id="i-crown" viewBox="0 0 24 24"><path d="M3 8l4.5 4L12 5l4.5 7L21 8l-2 11H5z"/></symbol>
+  <symbol id="i-map" viewBox="0 0 24 24"><path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3z"/><path d="M9 3v15M15 6v15"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-wave" viewBox="0 0 24 24"><path d="M3 12h1M7 8v8M11 4v16M15 7v10M19 10v4M22 12h-.5"/></symbol>
+  <symbol id="i-zap" viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></symbol>
+  <symbol id="i-notes" viewBox="0 0 24 24"><path d="M5 3h14v18H5zM9 8h6M9 12h6M9 16h4"/></symbol>
+  <symbol id="i-max" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></symbol>
+  <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6v.6M12 17h.01"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24"><path d="M12 3l9 4.5v9L12 21l-9-4.5v-9z"/><path d="M3 7.5l9 4.5 9-4.5M12 12v9"/></symbol>
+  <symbol id="i-cookie" viewBox="0 0 24 24"><path d="M21 12.5A9 9 0 1 1 11.5 3a3 3 0 0 0 4 4 3 3 0 0 0 5.5 5.5z"/><path d="M8 10h.01M9 15h.01M14 14h.01"/></symbol>
+  <symbol id="i-id" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M6 16a3 3 0 0 1 6 0M14 10h4M14 14h3"/></symbol>
+  <symbol id="i-grad" viewBox="0 0 24 24"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c3 2 9 2 12 0v-5M22 9v6"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z"/></symbol>
+</svg>
+
+<div id="progress" aria-hidden="true"></div>
+
+<main id="stage" aria-live="polite">
+
+<!-- =====================================================================
+     PART 1 — THE HOOK
+     ===================================================================== -->
+
+<!-- 01 · OPENING -->
+<section class="slide no-strips" data-title="Opening" data-section="Welcome" style="background:radial-gradient(900px 700px at 78% 50%, rgba(54,226,234,.13), transparent 60%), #000;">
+  <div class="row" style="height:100%;gap:40px">
+    <div class="col grow" style="justify-content:center;gap:0;max-width:820px">
+      <div class="row center rise" style="gap:12px;font:600 16px var(--f-title);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);--i:0">
+        <svg class="icon" style="color:var(--cyan);font-size:24px"><use href="#i-shield"/></svg>
+        <span contenteditable="true" spellcheck="false" data-store="org" aria-label="Organization (editable)">Your University · Cyber Security Club</span>
+      </div>
+      <h1 class="title t-xxl rise" style="margin-top:34px;--i:1">CTF 101</h1>
+      <p class="rise" style="font:500 50px/1.12 var(--f-title);text-transform:uppercase;letter-spacing:.02em;margin-top:14px;--i:2">Your first steps<br>into cybersecurity</p>
+      <div class="rise" style="margin-top:38px;--i:3"><span class="pill" style="font-size:22px;padding:14px 32px">Think like a hacker. Learn like a defender.</span></div>
+      <div class="row center rise" style="margin-top:70px;gap:28px;--i:4">
+        <div style="font-size:19px;color:var(--muted)">Presented by<br>
+          <strong style="font-size:23px" contenteditable="true" spellcheck="false" data-store="presenter" aria-label="Presenter name (editable)">Your Name</strong>
+        </div>
+        <span style="width:1px;height:48px;background:var(--line)"></span>
+        <div class="row center" style="gap:12px;font-size:18px;color:var(--muted)"><span class="circle-arrow"><svg class="icon"><use href="#i-arrow-r"/></svg></span>Press <span class="term">→</span> or <span class="term">Space</span> to begin</div>
+      </div>
+      <a class="link-arrow doc-link rise" data-doc href="README.md" target="_blank" rel="noopener" style="--i:5;margin-top:28px;font-size:18px"><svg class="icon"><use href="#i-book"/></svg>Workshop resources: category guides, tools &amp; roadmaps</a>
+    </div>
+    <div class="grow rise" style="display:grid;place-items:center;--i:2">
+      <svg class="illus" viewBox="0 0 640 640" style="width:640px" role="img" aria-label="A glowing radar with a terminal window that has just found a flag">
+        <defs>
+          <radialGradient id="g-core"><stop offset="0" stop-color="#36e2ea" stop-opacity=".28"/><stop offset="1" stop-color="#36e2ea" stop-opacity="0"/></radialGradient>
+          <linearGradient id="g-beam" x1="0" x2="1"><stop offset="0" stop-color="#36e2ea" stop-opacity="0"/><stop offset=".5" stop-color="#d8feff"/><stop offset="1" stop-color="#36e2ea" stop-opacity="0"/></linearGradient>
+        </defs>
+        <circle cx="320" cy="320" r="310" fill="url(#g-core)"/>
+        <g fill="none" stroke="#36e2ea">
+          <circle cx="320" cy="320" r="290" stroke-opacity=".25"/>
+          <circle cx="320" cy="320" r="240" stroke-opacity=".45" stroke-dasharray="2 10"/>
+          <circle cx="320" cy="320" r="190" stroke-opacity=".35"/>
+          <circle cx="320" cy="320" r="140" stroke-opacity=".2" stroke-dasharray="40 14"/>
+        </g>
+        <rect class="beam" x="-80" y="318" width="800" height="3" fill="url(#g-beam)" transform="rotate(-28 320 320)"/>
+        <!-- category satellites on the orbit -->
+        <g fill="#000" stroke="#36e2ea" stroke-width="1.5">
+          <circle cx="320" cy="80" r="26"/><circle cx="528" cy="200" r="26"/><circle cx="528" cy="440" r="26"/>
+          <circle cx="320" cy="560" r="26"/><circle cx="112" cy="440" r="26"/><circle cx="112" cy="200" r="26"/>
+        </g>
+        <g stroke="#36e2ea" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <use href="#i-lock" x="308" y="68" width="24" height="24"/>
+          <use href="#i-globe" x="516" y="188" width="24" height="24"/>
+          <use href="#i-image" x="516" y="428" width="24" height="24"/>
+          <use href="#i-cpu" x="308" y="548" width="24" height="24"/>
+          <use href="#i-search" x="100" y="428" width="24" height="24"/>
+          <use href="#i-file" x="100" y="188" width="24" height="24"/>
+        </g>
+        <!-- terminal -->
+        <g transform="translate(140 200)">
+          <rect width="360" height="236" rx="16" fill="#02090b" stroke="#36e2ea" stroke-width="2"/>
+          <path d="M0 16a16 16 0 0 1 16-16h328a16 16 0 0 1 16 16v20H0z" fill="rgba(54,226,234,.14)"/>
+          <circle cx="22" cy="18" r="5" fill="#36e2ea" opacity=".9"/><circle cx="40" cy="18" r="5" fill="#36e2ea" opacity=".5"/><circle cx="58" cy="18" r="5" fill="#36e2ea" opacity=".25"/>
+          <g font-family="JetBrains Mono, Consolas, monospace" font-size="16" fill="#cfeff1">
+            <text x="22" y="72"><tspan fill="#36e2ea">$</tspan> ./start_journey</text>
+            <text x="22" y="102" fill="#7fa3a7">[+] curiosity ........ <tspan fill="#6ef2a8">ok</tspan></text>
+            <text x="22" y="128" fill="#7fa3a7">[+] patience ......... <tspan fill="#6ef2a8">ok</tspan></text>
+            <text x="22" y="154" fill="#7fa3a7">[*] searching for the flag…</text>
+            <rect x="16" y="172" width="290" height="34" rx="8" fill="rgba(54,226,234,.16)" stroke="#36e2ea"/>
+            <text x="28" y="195" fill="#ffffff" font-weight="600">FLAG{welcome_to_ctf}</text>
+          </g>
+        </g>
+        <g transform="translate(470 150)" class="glow" style="color:#36e2ea">
+          <path d="M0 80V0" stroke="#36e2ea" stroke-width="3"/><path d="M0 2h44l-9 14 9 14H0z" fill="#36e2ea"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>~1 min.</b> Welcome everyone. Introduce yourself and the club. Click on the organisation name and on "Your Name" to type your own (the slide remembers it in this browser).</p>
+    <p>Set expectations: no prior knowledge needed, there will be two small challenges to solve together, and every link in this deck is clickable for later.</p>
+    <p>Shortcuts: <b>N</b> notes · <b>O</b> overview · <b>F</b> fullscreen · <b>?</b> help.</p>
+  </aside>
+</section>
+
+<!-- 02 · IMAGINE THIS -->
+<section class="slide" data-title="Imagine this…" data-section="Welcome">
+  <div class="kicker rise">Part 1 · The hook</div>
+  <h2 class="title t-lg rise" style="--i:1">Imagine this…</h2>
+  <div class="grid g2 mt imagine" style="gap:24px;flex:1;align-content:center">
+    <div class="card row rise" style="--i:2;gap:20px">
+      <div class="icon-box"><svg class="icon"><use href="#i-mail"/></svg></div>
+      <div><p>An email from <strong>"your university IT team"</strong> asks you to re-confirm your password before midnight.</p>
+        <p class="accent mt-s" style="font-style:italic">Who really sent it?</p></div>
+    </div>
+    <div class="card row rise" style="--i:3;gap:20px">
+      <div class="icon-box"><svg class="icon"><use href="#i-file"/></svg></div>
+      <div><p>A file called <span class="term">notes.pdf</span> appears in your Downloads folder. No PDF reader can open it.</p>
+        <p class="accent mt-s" style="font-style:italic">What is it really?</p></div>
+    </div>
+    <div class="card row rise" style="--i:4;gap:20px">
+      <div class="icon-box"><svg class="icon"><use href="#i-msg"/></svg></div>
+      <div><p>A friend sends you only this:<br><span class="term">TWVldCBtZSBhdCB0aGUgbGlicmFyeQ==</span></p>
+        <p class="accent mt-s" style="font-style:italic">Is that a secret code?</p></div>
+    </div>
+    <div class="card row rise" style="--i:5;gap:20px">
+      <div class="icon-box"><svg class="icon"><use href="#i-globe"/></svg></div>
+      <div><p>You change one number in the course-registration web address… and see <strong>someone else's timetable</strong>.</p>
+        <p class="accent mt-s" style="font-style:italic">Why did that happen?</p></div>
+    </div>
+  </div>
+  <div class="mt-auto rise" style="--i:6;display:flex;align-items:center;gap:24px">
+    <span class="circle-arrow" style="width:56px;height:56px;font-size:26px"><svg class="icon"><use href="#i-search"/></svg></span>
+    <p style="font:500 36px/1.25 var(--f-title)">What if you could <span class="accent" style="text-shadow:0 0 16px rgba(54,226,234,.6)">investigate</span> what is happening, instead of simply wondering?</p>
+  </div>
+  <aside class="notes">
+    <p><b>~2 min.</b> Ask for a show of hands: "Who has received a suspicious email like this?" Most hands go up.</p>
+    <p>Don't solve these yet. Each scenario comes back later: the email (phishing / OSINT), the file (forensics), the code (it's Base64 for "Meet me at the library"; we decode a message like it in Part 5), and the website (web exploitation, an authorization bug).</p>
+    <p>Main message: cybersecurity is about <b>curiosity and investigation</b>, not magic.</p>
+  </aside>
+</section>
+
+<!-- 03 · WHAT IS CYBERSECURITY -->
+<section class="slide" data-title="What is cybersecurity?" data-section="Welcome">
+  <div class="kicker rise">Part 1 · The hook</div>
+  <h2 class="title t-lg rise" style="--i:1">What is cybersecurity?</h2>
+  <p class="lead mt-s rise" style="--i:2">Protecting <strong>accounts, devices and data</strong> from being stolen, damaged or misused, and understanding how attacks work so we can stop them.</p>
+  <div class="row mt" style="gap:26px;flex:1">
+    <div class="grid g2 grow" style="gap:16px;align-content:start">
+      <div class="card compact rise" style="--i:3"><h3 class="row center" style="gap:10px;font-size:22px"><svg class="icon accent"><use href="#i-id"/></svg>Student accounts</h3><p class="small muted">Your email, learning platform and Wi-Fi logins, protected by passwords and <strong>2FA</strong> (a second proof, like a code on your phone).</p></div>
+      <div class="card compact rise" style="--i:4"><h3 class="row center" style="gap:10px;font-size:22px"><svg class="icon accent"><use href="#i-globe"/></svg>University websites</h3><p class="small muted">The grades portal must show <em>your</em> grades, and only yours.</p></div>
+      <div class="card compact rise" style="--i:5"><h3 class="row center" style="gap:10px;font-size:22px"><svg class="icon accent"><use href="#i-finger"/></svg>Personal data</h3><p class="small muted">Names, student ID numbers, addresses, payment details. Valuable to criminals, protected by law.</p></div>
+      <div class="card compact rise" style="--i:6"><h3 class="row center" style="gap:10px;font-size:22px"><svg class="icon accent"><use href="#i-mail"/></svg>Spotting phishing</h3><p class="small muted"><strong>Phishing</strong> = "fishing" for your password with a fake message used as bait.</p></div>
+      <div class="card compact rise" style="--i:7;grid-column:1/-1"><h3 class="row center" style="gap:10px;font-size:22px"><svg class="icon accent"><use href="#i-bug"/></svg>Understanding how apps get exploited</h3><p class="small muted">An <strong>exploit</strong> uses a mistake (a "bug") in software to make it do something it was never meant to do. Defenders study exploits so they can find and fix bugs before criminals do.</p></div>
+    </div>
+    <div class="card fill rise" style="--i:5;width:430px;display:flex;flex-direction:column;justify-content:center">
+      <h4>It's much more than "hacking"</h4>
+      <p style="font:600 30px/1.2 var(--f-title);margin:6px 0 18px">Cybersecurity people…</p>
+      <div class="col" style="gap:12px;font-size:21px;font-weight:600">
+        <div class="row center" style="gap:12px"><svg class="icon"><use href="#i-shield"/></svg>defend systems</div>
+        <div class="row center" style="gap:12px"><svg class="icon"><use href="#i-search"/></svg>investigate incidents</div>
+        <div class="row center" style="gap:12px"><svg class="icon"><use href="#i-code"/></svg>build secure software</div>
+        <div class="row center" style="gap:12px"><svg class="icon"><use href="#i-bug"/></svg>break things ethically to fix them</div>
+        <div class="row center" style="gap:12px"><svg class="icon"><use href="#i-book"/></svg>write policy and teach others</div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>~2 min.</b> Keep it concrete. Ask: "What would happen if someone got into your university email?" (password resets for every other account, impersonating you to professors…)</p>
+    <p>Optional extra: professionals often summarise the goals as the <b>CIA triad</b>: Confidentiality (only the right people can see it), Integrity (nobody can secretly change it), Availability (it works when you need it).</p>
+  </aside>
+</section>
+
+<!-- 04 · AREAS -->
+<section class="slide" data-title="Meet the different areas" data-section="Welcome">
+  <div class="kicker rise">Part 1 · The hook</div>
+  <div class="row between" style="align-items:flex-end">
+    <h2 class="title t-md rise" style="--i:1">Meet the different areas</h2>
+    <p class="muted rise small" style="--i:2;max-width:400px;text-align:right"><span class="chip" style="font-size:14px">⚑ CTF</span> = you'll meet this as a CTF category today</p>
+  </div>
+  <div class="grid g4 mt" style="gap:18px">
+    <div class="card compact rise" style="--i:2;--accent:var(--c-web)"><div class="row between"><div class="icon-box sm"><svg class="icon"><use href="#i-globe"/></svg></div><span class="chip" style="font-size:14px">⚑ CTF</span></div><h3 class="mt-s" style="font-size:22px">Web Security</h3><p class="small muted">Find and fix flaws in websites and web apps.</p></div>
+    <div class="card compact rise" style="--i:3;--accent:var(--c-forensics)"><div class="row between"><div class="icon-box sm"><svg class="icon"><use href="#i-search"/></svg></div><span class="chip" style="font-size:14px">⚑ CTF</span></div><h3 class="mt-s" style="font-size:22px">Digital Forensics</h3><p class="small muted">Examine files, disks and devices to work out what happened.</p></div>
+    <div class="card compact rise" style="--i:4;--accent:var(--c-crypto)"><div class="row between"><div class="icon-box sm"><svg class="icon"><use href="#i-lock"/></svg></div><span class="chip" style="font-size:14px">⚑ CTF</span></div><h3 class="mt-s" style="font-size:22px">Cryptography</h3><p class="small muted">The science of secret messages: codes, ciphers, encryption.</p></div>
+    <div class="card compact rise" style="--i:5;--accent:#7fd8ff"><div class="row between"><div class="icon-box sm"><svg class="icon"><use href="#i-network"/></svg></div><span class="chip" style="font-size:14px">inside forensics</span></div><h3 class="mt-s" style="font-size:22px">Network Security</h3><p class="small muted">Protect data travelling between computers, each identified by an <strong>IP address</strong> (like a postal address for a device).</p></div>
+    <div class="card compact rise" style="--i:6;--accent:var(--c-reverse)"><div class="row between"><div class="icon-box sm"><svg class="icon"><use href="#i-box"/></svg></div><span class="chip" style="font-size:14px">⚑ CTF</span></div><h3 class="mt-s" style="font-size:22px">Reverse Engineering</h3><p class="small muted">Take a program apart to understand how it works.</p></div>
+    <div class="card compact rise" style="--i:7;--accent:var(--c-pwn)"><div class="row between"><div class="icon-box sm"><svg class="icon"><use href="#i-cpu"/></svg></div><span class="chip" style="font-size:14px">⚑ CTF</span></div><h3 class="mt-s" style="font-size:22px">Binary Exploitation</h3><p class="small muted">Find memory mistakes in programs that make them misbehave.</p></div>
+    <div class="card compact rise" style="--i:8;--accent:var(--c-osint)"><div class="row between"><div class="icon-box sm"><svg class="icon"><use href="#i-eye"/></svg></div><span class="chip" style="font-size:14px">⚑ CTF</span></div><h3 class="mt-s" style="font-size:22px">OSINT</h3><p class="small muted">Investigate using information that is already public.</p></div>
+    <div class="card compact rise" style="--i:9;--accent:#ffd36b"><div class="row between"><div class="icon-box sm"><svg class="icon"><use href="#i-siren"/></svg></div><span class="chip" style="font-size:14px">blue-team CTFs</span></div><h3 class="mt-s" style="font-size:22px">Incident Response</h3><p class="small muted">The "firefighters": they react, contain and recover when an attack happens.</p></div>
+  </div>
+  <div class="card fill mt-auto rise row center" style="--i:10;gap:18px;padding:18px 26px">
+    <svg class="icon" style="font-size:34px"><use href="#i-flag"/></svg>
+    <p style="font-size:24px;font-weight:600">CTFs let you try almost all of these in one weekend, in a safe and legal playground.</p>
+  </div>
+  <aside class="notes">
+    <p><b>~2 min.</b> Don't explain each tile in depth; we will come back to most of them in Part 3. Point out that nobody is an expert in all of them. People specialise.</p>
+    <p>"Blue team" = defenders; "red team" = authorised attackers who test defences. Network topics usually show up in CTFs as captured traffic files (forensics) or inside misc challenges.</p>
+  </aside>
+</section>
+
+<!-- =====================================================================
+     PART 2 — UNDERSTANDING CTFs
+     ===================================================================== -->
+
+<!-- 05 · WHAT IS A CTF -->
+<section class="slide" data-title="So, what is a CTF?" data-section="Understanding CTFs">
+  <div class="kicker rise">Part 2 · Understanding CTFs</div>
+  <h2 class="title t-lg rise" style="--i:1">So, what is a CTF?</h2>
+  <div class="row mt" style="gap:44px;flex:1">
+    <div class="col grow" style="gap:18px">
+      <p class="lead rise" style="--i:2">Capture The Flag is a <span class="hl">treasure hunt</span>, except the clues are hidden in files, websites, network traffic, code and encrypted messages.</p>
+      <div class="col rise" style="--i:3;gap:10px;font-size:20px">
+        <div class="row" style="gap:14px"><span class="badge web-tool" style="width:118px;text-align:center">Challenge</span><span>A puzzle with a hidden secret inside.</span></div>
+        <div class="row" style="gap:14px"><span class="badge web-tool" style="width:118px;text-align:center">Flag</span><span>The secret text that proves you solved it.</span></div>
+        <div class="row" style="gap:14px"><span class="badge web-tool" style="width:118px;text-align:center">Category</span><span>The type of puzzle: crypto, web, forensics…</span></div>
+        <div class="row" style="gap:14px"><span class="badge web-tool" style="width:118px;text-align:center">Points</span><span>Harder challenge = more points. Most points wins.</span></div>
+        <div class="row" style="gap:14px"><span class="badge web-tool" style="width:118px;text-align:center">Submit</span><span>Paste the flag into the competition website to score.</span></div>
+      </div>
+      <div class="card rise mt-auto" style="--i:4">
+        <h4>Anatomy of a flag</h4>
+        <div style="font:600 40px/1 var(--f-mono);margin:16px 0 8px;letter-spacing:.01em;white-space:nowrap"><span style="color:#ffd08a">FLAG</span><span class="accent">{</span>you_found_the_secret<span class="accent">}</span></div>
+        <div class="row small" style="gap:22px">
+          <span><b style="color:#ffd08a">FLAG</b> = the prefix</span><span><b class="accent">{ }</b> = the wrapper</span><span><b>inside</b> = the secret text</span>
+        </div>
+        <p class="small muted mt-s">Every competition picks its own format, e.g. <span class="term">picoCTF{…}</span> or <span class="term">HTB{…}</span>. The rules page always tells you.</p>
+      </div>
+    </div>
+    <div class="rise" style="--i:3;width:600px;display:flex;flex-direction:column;justify-content:center">
+      <div class="frame" style="border-width:10px">
+        <svg class="illus" viewBox="0 0 580 470" role="img" aria-label="Treasure map: a dashed path leads from a file, to a website, to network traffic, to a locked message, and ends at a flag">
+          <defs><pattern id="p-grid" width="29" height="29" patternUnits="userSpaceOnUse"><path d="M29 0H0V29" fill="none" stroke="#36e2ea" stroke-opacity=".08"/></pattern></defs>
+          <rect width="580" height="470" fill="url(#p-grid)"/>
+          <path d="M70 390 C 140 300, 90 230, 170 200 S 300 250, 330 160 S 450 90, 500 110" fill="none" stroke="#36e2ea" stroke-width="3" stroke-dasharray="10 10" opacity=".85"/>
+          <g fill="#02090b" stroke="#36e2ea" stroke-width="2">
+            <circle cx="70" cy="390" r="34"/><circle cx="170" cy="200" r="34"/><circle cx="330" cy="160" r="34"/><circle cx="420" cy="280" r="34" stroke-dasharray="4 5"/>
+          </g>
+          <g stroke="#36e2ea" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <use href="#i-file" x="56" y="376" width="28" height="28"/>
+            <use href="#i-globe" x="156" y="186" width="28" height="28"/>
+            <use href="#i-network" x="316" y="146" width="28" height="28"/>
+            <use href="#i-lock" x="406" y="266" width="28" height="28"/>
+          </g>
+          <path d="M330 194 C 360 230, 380 250, 400 254" fill="none" stroke="#36e2ea" stroke-width="2" stroke-dasharray="4 6" opacity=".5"/>
+          <g font-family="Inter, sans-serif" font-size="15" fill="#9dbcc0" text-anchor="middle">
+            <text x="70" y="446">a file</text><text x="170" y="256">a website</text><text x="330" y="216">network traffic</text><text x="420" y="336">a dead end?</text>
+          </g>
+          <g transform="translate(486 34)">
+            <circle cx="16" cy="76" r="44" fill="#36e2ea" opacity=".12" class="pulse"/>
+            <path d="M0 110V0" stroke="#36e2ea" stroke-width="4"/>
+            <path d="M0 3h56l-12 18 12 18H0z" fill="#36e2ea"/>
+          </g>
+          <text x="512" y="176" font-family="JetBrains Mono, monospace" font-size="15" fill="#fff" text-anchor="middle">FLAG{…}</text>
+          <text x="22" y="34" font-family="Montserrat, sans-serif" font-size="14" letter-spacing="3" fill="#36e2ea">THE CTF TREASURE MAP</text>
+        </svg>
+      </div>
+      <p class="tiny muted mt-s" style="text-align:center">Real challenges include dead ends too, and that's part of the fun.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>~2 min.</b> Analogy: a treasure hunt / escape room for computers. The clue trail can go through several "stations" before you reach the flag.</p>
+    <p>Flags are plain text that you copy and paste. They are designed to be unguessable, so finding one proves you solved the challenge.</p>
+  </aside>
+</section>
+
+<!-- 06 · HOW DOES A CTF WORK -->
+<section class="slide" data-title="How does a CTF work?" data-section="Understanding CTFs">
+  <div class="kicker rise">Part 2 · Understanding CTFs</div>
+  <h2 class="title t-lg rise" style="--i:1">How does a CTF work?</h2>
+  <p class="lead mt-s rise" style="--i:2">From signing up to climbing the scoreboard, in eight steps.</p>
+  <div class="rise" style="--i:3;position:relative;margin-top:84px">
+    <svg viewBox="0 0 1408 60" style="position:absolute;left:0;top:0;width:1408px;height:60px" aria-hidden="true">
+      <line x1="88" y1="40" x2="1320" y2="40" stroke="#36e2ea" stroke-opacity=".45" stroke-width="2" stroke-dasharray="6 8"/>
+    </svg>
+    <div class="grid" style="grid-template-columns:repeat(8,1fr);gap:12px;position:relative">
+      <div class="col center" style="gap:10px;text-align:center"><div class="icon-box" style="width:80px;height:80px;border-radius:50%;background:#000"><svg class="icon"><use href="#i-users"/></svg></div><b style="font:600 15px var(--f-title);color:var(--cyan);letter-spacing:.1em">01 · JOIN</b><p class="small">Register yourself or a team on the CTF website.</p></div>
+      <div class="col center" style="gap:10px;text-align:center"><div class="icon-box" style="width:80px;height:80px;border-radius:50%;background:#000"><svg class="icon"><use href="#i-grid"/></svg></div><b style="font:600 15px var(--f-title);color:var(--cyan);letter-spacing:.1em">02 · BROWSE</b><p class="small">See the board of challenges by category and points.</p></div>
+      <div class="col center" style="gap:10px;text-align:center"><div class="icon-box" style="width:80px;height:80px;border-radius:50%;background:#000"><svg class="icon"><use href="#i-target"/></svg></div><b style="font:600 15px var(--f-title);color:var(--cyan);letter-spacing:.1em">03 · CHOOSE</b><p class="small">Pick one that matches your interest or level.</p></div>
+      <div class="col center" style="gap:10px;text-align:center"><div class="icon-box" style="width:80px;height:80px;border-radius:50%;background:#000"><svg class="icon"><use href="#i-download"/></svg></div><b style="font:600 15px var(--f-title);color:var(--cyan);letter-spacing:.1em">04 · INVESTIGATE</b><p class="small">Download the file or open the website it gives you.</p></div>
+      <div class="col center" style="gap:10px;text-align:center"><div class="icon-box" style="width:80px;height:80px;border-radius:50%;background:#000"><svg class="icon"><use href="#i-eye"/></svg></div><b style="font:600 15px var(--f-title);color:var(--cyan);letter-spacing:.1em">05 · SPOT CLUES</b><p class="small">Anything odd? The title, file names, formats, hints.</p></div>
+      <div class="col center" style="gap:10px;text-align:center"><div class="icon-box" style="width:80px;height:80px;border-radius:50%;background:#000"><svg class="icon"><use href="#i-toolbox"/></svg></div><b style="font:600 15px var(--f-title);color:var(--cyan);letter-spacing:.1em">06 · TOOLS + LOGIC</b><p class="small">Test ideas one at a time with the right tool.</p></div>
+      <div class="col center" style="gap:10px;text-align:center"><div class="icon-box" style="width:80px;height:80px;border-radius:50%;background:#000"><svg class="icon"><use href="#i-flag"/></svg></div><b style="font:600 15px var(--f-title);color:var(--cyan);letter-spacing:.1em">07 · FIND IT</b><p class="small">Spot the text in the agreed flag format.</p></div>
+      <div class="col center" style="gap:10px;text-align:center"><div class="icon-box" style="width:80px;height:80px;border-radius:50%;background:var(--cyan);color:var(--cyan-ink);box-shadow:0 0 30px rgba(54,226,234,.5)"><svg class="icon"><use href="#i-trophy"/></svg></div><b style="font:600 15px var(--f-title);color:var(--cyan);letter-spacing:.1em">08 · SUBMIT</b><p class="small">Paste it in, earn points, climb the scoreboard.</p></div>
+    </div>
+    <svg viewBox="0 0 1408 70" style="width:1408px;height:70px;margin-top:8px" aria-hidden="true">
+      <defs><marker id="m-arr" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#36e2ea"/></marker></defs>
+      <path d="M1320 6 C 1320 60, 1200 60, 800 60 S 270 60, 270 14" fill="none" stroke="#36e2ea" stroke-width="2" stroke-dasharray="6 7" marker-end="url(#m-arr)"/>
+      <rect x="574" y="46" width="260" height="28" fill="#000"/>
+      <text x="704" y="66" fill="#36e2ea" font-family="Inter, sans-serif" font-size="18" text-anchor="middle">↻ repeat: pick the next challenge</text>
+    </svg>
+  </div>
+  <div class="row mt-auto rise" style="--i:4;gap:18px">
+    <div class="jargon grow"><svg class="icon"><use href="#i-clock"/></svg><span><b>Typical event:</b> online, 24–48 hours, solo or in teams. Practice platforms have no timer at all, so you can learn at your own pace.</span></div>
+    <div class="jargon grow"><svg class="icon"><use href="#i-bulb"/></svg><span><b>Stuck?</b> Many beginner platforms offer hints. After a competition, players publish <b>writeups</b>: step-by-step explanations of their solutions.</span></div>
+  </div>
+  <aside class="notes">
+    <p><b>~2 min.</b> Walk through the line left to right. Stress step 5: most of the work is noticing details, not typing commands.</p>
+    <p>Writeups are the secret weapon of every learner: reading how others solved a challenge you couldn't solve is how most people improve.</p>
+  </aside>
+</section>
+
+<!-- 07 · TYPES -->
+<section class="slide" data-title="Types of CTF competitions" data-section="Understanding CTFs">
+  <div class="kicker rise">Part 2 · Understanding CTFs</div>
+  <h2 class="title t-lg rise" style="--i:1">Types of CTF competitions</h2>
+  <div class="grid mt" style="grid-template-columns:1.25fr 1fr 1fr;gap:22px;flex:1">
+    <div class="card fill rise col" style="--i:2;gap:12px">
+      <div class="row between center"><h3 style="font-size:30px">Jeopardy</h3><span class="badge" style="background:var(--cyan-ink);color:var(--cyan)">★ Start here</span></div>
+      <div class="grid" style="grid-template-columns:repeat(4,1fr);gap:6px;font:700 15px var(--f-mono);text-align:center">
+        <span style="font:700 12px var(--f-title);letter-spacing:.08em">WEB</span><span style="font:700 12px var(--f-title);letter-spacing:.08em">CRYPTO</span><span style="font:700 12px var(--f-title);letter-spacing:.08em">FORENSICS</span><span style="font:700 12px var(--f-title);letter-spacing:.08em">OSINT</span>
+        <span style="background:var(--cyan-ink);color:var(--cyan);border-radius:6px;padding:7px 0">✓</span><span style="background:var(--cyan-ink);color:var(--cyan);border-radius:6px;padding:7px 0">✓</span><span style="border:1.5px solid var(--cyan-ink);border-radius:6px;padding:6px 0">100</span><span style="background:var(--cyan-ink);color:var(--cyan);border-radius:6px;padding:7px 0">✓</span>
+        <span style="border:1.5px solid var(--cyan-ink);border-radius:6px;padding:6px 0">200</span><span style="background:var(--cyan-ink);color:var(--cyan);border-radius:6px;padding:7px 0">✓</span><span style="border:1.5px solid var(--cyan-ink);border-radius:6px;padding:6px 0">200</span><span style="border:1.5px solid var(--cyan-ink);border-radius:6px;padding:6px 0">200</span>
+        <span style="border:1.5px solid var(--cyan-ink);border-radius:6px;padding:6px 0">300</span><span style="border:1.5px solid var(--cyan-ink);border-radius:6px;padding:6px 0">300</span><span style="border:1.5px solid var(--cyan-ink);border-radius:6px;padding:6px 0">300</span><span style="border:1.5px solid var(--cyan-ink);border-radius:6px;padding:6px 0">300</span>
+      </div>
+      <p style="font-size:19px">A board of independent challenges, sorted by category and points. Solve them <strong>in any order</strong>, alone or as a team.</p>
+      <div class="col mt-auto" style="gap:6px;font-size:18px;font-weight:600">
+        <span>✓ Pick the topics you like</span><span>✓ Easy challenges always exist</span><span>✓ One stuck challenge never blocks you</span><span>✓ Writeups appear afterwards</span>
+      </div>
+    </div>
+    <div class="card rise col" style="--i:3;gap:12px">
+      <h3 style="font-size:28px">Attack–Defense</h3>
+      <svg viewBox="0 0 300 120" style="width:100%" aria-label="Two teams, each defending its own server while attacking the other" role="img">
+        <g fill="none" stroke="#36e2ea" stroke-width="2">
+          <rect x="16" y="30" width="70" height="60" rx="8"/><rect x="214" y="30" width="70" height="60" rx="8"/>
+          <path d="M96 48 H204" marker-end="url(#m-arr)"/><path d="M204 74 H96" marker-end="url(#m-arr)"/>
+        </g>
+        <g stroke="#36e2ea" fill="none" stroke-width="1.8"><use href="#i-shield" x="37" y="46" width="28" height="28"/><use href="#i-shield" x="235" y="46" width="28" height="28"/></g>
+        <g font-family="Inter" font-size="13" fill="#9dbcc0" text-anchor="middle"><text x="51" y="112">Team A</text><text x="249" y="112">Team B</text><text x="150" y="40">attack</text><text x="150" y="96">attack</text></g>
+      </svg>
+      <p style="font-size:19px">Every team gets <strong>identical vulnerable servers</strong>. Patch yours while attacking the others to steal their flags.</p>
+      <p class="small muted mt-auto">Fast and intense. Usually for experienced teams.</p>
+    </div>
+    <div class="card rise col" style="--i:4;gap:12px">
+      <h3 style="font-size:28px">King of the Hill</h3>
+      <svg viewBox="0 0 300 120" style="width:100%" aria-label="A crown on top of a hill" role="img">
+        <path d="M20 110 C 90 110, 110 50, 150 50 S 210 110, 280 110" fill="rgba(54,226,234,.08)" stroke="#36e2ea" stroke-width="2"/>
+        <g stroke="#36e2ea" fill="none" stroke-width="1.8" class="glow" style="color:#36e2ea"><use href="#i-crown" x="130" y="10" width="40" height="40"/></g>
+      </svg>
+      <p style="font-size:19px">Teams race to <strong>take control of a machine</strong> and hold it. The longer your name stays "on the throne", the more you score.</p>
+      <p class="small muted mt-auto">Fun, but less common. Try it once you have the basics.</p>
+    </div>
+  </div>
+  <p class="rise mt" style="--i:5;font-size:22px"><span class="hl">Beginners almost always start with Jeopardy:</span> it's the most common format, and every challenge is a small, self-contained lesson.</p>
+  <aside class="notes">
+    <p><b>~2 min.</b> Jeopardy-style is named after the TV quiz show board: categories in columns, point values in rows.</p>
+    <p>Attack-Defense example: DEF CON CTF finals. King of the Hill exists on some platforms (e.g. TryHackMe has a KoTH mode). Today, everything we discuss is Jeopardy-style.</p>
+  </aside>
+</section>
+
+<!-- 08 · WHY STUDENTS -->
+<section class="slide" data-title="Why should students try CTFs?" data-section="Understanding CTFs">
+  <div class="kicker rise">Part 2 · Understanding CTFs</div>
+  <h2 class="title t-lg rise" style="--i:1">Why should <em style="font-style:normal;color:#fff">you</em> try CTFs?</h2>
+  <div class="grid g4 mt" style="gap:16px">
+    <div class="card compact rise" style="--i:2"><div class="icon-box sm"><svg class="icon"><use href="#i-bulb"/></svg></div><h3 class="mt-s" style="font-size:21px">Problem-solving</h3><p class="small muted">Break big, confusing problems into small ideas you can test. Useful in every degree.</p></div>
+    <div class="card compact rise" style="--i:3"><div class="icon-box sm"><svg class="icon"><use href="#i-terminal"/></svg></div><h3 class="mt-s" style="font-size:21px">Linux &amp; networking, naturally</h3><p class="small muted">You learn commands because a challenge needs them, not from a boring list.</p></div>
+    <div class="card compact rise" style="--i:4"><div class="icon-box sm"><svg class="icon"><use href="#i-compass"/></svg></div><h3 class="mt-s" style="font-size:21px">Find your thing</h3><p class="small muted">Try 8 areas of security in a weekend and find out what you enjoy.</p></div>
+    <div class="card compact rise" style="--i:5"><div class="icon-box sm"><svg class="icon"><use href="#i-file"/></svg></div><h3 class="mt-s" style="font-size:21px">Build your CV</h3><p class="small muted">Rankings, team results and published writeups show real, practical skill.</p></div>
+    <div class="card compact rise" style="--i:6"><div class="icon-box sm"><svg class="icon"><use href="#i-briefcase"/></svg></div><h3 class="mt-s" style="font-size:21px">Internships &amp; interviews</h3><p class="small muted">Great answers to "tell me about a time you solved a hard problem".</p></div>
+    <div class="card compact rise" style="--i:7"><div class="icon-box sm"><svg class="icon"><use href="#i-users"/></svg></div><h3 class="mt-s" style="font-size:21px">Meet your people</h3><p class="small muted">Find students who enjoy the same puzzles, and learn faster together.</p></div>
+    <div class="card compact rise" style="--i:8"><div class="icon-box sm"><svg class="icon"><use href="#i-trophy"/></svg></div><h3 class="mt-s" style="font-size:21px">Compete worldwide</h3><p class="small muted">Join university teams and international online events, many of them free.</p></div>
+    <div class="card compact rise" style="--i:9"><div class="icon-box sm"><svg class="icon"><use href="#i-zap"/></svg></div><h3 class="mt-s" style="font-size:21px">It's genuinely fun</h3><p class="small muted">That "I GOT IT!" moment when the flag appears is hard to beat.</p></div>
+  </div>
+  <div class="card fill mt-auto rise row center" style="--i:10;gap:22px;padding:22px 28px">
+    <svg class="icon" style="font-size:44px"><use href="#i-check"/></svg>
+    <div><p style="font:700 26px/1.2 var(--f-title)">You do NOT need to be an expert programmer to start.</p>
+    <p style="font-size:20px;margin-top:4px">Many beginner challenges need only a web browser, curiosity and patience. Coding skills come gradually, when you need them.</p></div>
+  </div>
+  <aside class="notes">
+    <p><b>~2 min.</b> This slide is about motivation, so make it personal. If you have a story (first flag, an internship conversation, a team trip), tell it here.</p>
+    <p>Emphasise: students from any degree (law, psychology, maths, design) do well in CTFs. OSINT, crypto and forensics reward careful thinking more than coding.</p>
+  </aside>
+</section>
+
+<!-- 09 · GOLDEN RULE -->
+<section class="slide" data-title="Types of hackers & security teams" data-section="Understanding CTFs">
+  <div class="kicker rise">Part 2 · Understanding CTFs</div>
+  <h2 class="title t-lg rise" style="--i:1">Types of hackers</h2>
+  <p class="rise" style="--i:2;font:500 32px/1.2 var(--f-title);margin-top:14px">They use similar skills, but differ in <span class="accent">permission</span>, <span class="accent">intent</span>, and <span class="accent">goal</span>.</p>
+  <div class="grid g3 mt-l" style="gap:24px">
+    <div class="card rise" style="--i:3;--accent:var(--good)">
+      <h3 class="row center" style="gap:12px;color:var(--good)">White hat</h3>
+      <p class="small" style="margin-top:12px">Authorized security professionals who protect systems.</p>
+      <ul class="col" style="gap:8px;margin:14px 0 0;padding-left:22px;font-size:18px">
+        <li>Permission from the owner</li>
+        <li>Ethical hacking and audits</li>
+        <li>Risk reports and responsible disclosure</li>
+      </ul>
+    </div>
+    <div class="card rise" style="--i:4;--accent:var(--bad)">
+      <h3 class="row center" style="gap:12px;color:var(--bad)">Red team</h3>
+      <p class="small" style="margin-top:12px">Authorized attackers who test whether defences work.</p>
+      <ul class="col" style="gap:8px;margin:14px 0 0;padding-left:22px;font-size:18px">
+        <li>Penetration testing</li>
+        <li>Simulates real-world attacks</li>
+        <li>Finds weaknesses before real attackers do</li>
+      </ul>
+    </div>
+    <div class="card rise" style="--i:5;--accent:var(--cyan)">
+      <h3 class="row center" style="gap:12px;color:var(--cyan)">Blue team</h3>
+      <p class="small" style="margin-top:12px">Defenders who monitor, detect and respond to attacks.</p>
+      <ul class="col" style="gap:8px;margin:14px 0 0;padding-left:22px;font-size:18px">
+        <li>Security monitoring</li>
+        <li>Incident response</li>
+        <li>Patch, contain and recover</li>
+      </ul>
+    </div>
+  </div>
+  <div class="row mt-l rise" style="--i:6;gap:24px">
+    <div class="jargon grow"><b>Gray hat:</b> May find weaknesses without clear authorization. It can still break laws or rules.</div>
+    <div class="jargon grow"><b>Black hat:</b> Breaks into systems for theft, disruption or personal gain. This is illegal and harmful.</div>
+    <div class="jargon grow"><b>Purple team:</b> Red and blue teams share findings to improve defences together.</div>
+  </div>
+  <p class="small muted mt-auto rise" style="--i:7">The same technical skill can be used safely or dangerously. Ethical security work requires <strong>permission</strong>, clear rules and responsible reporting.</p>
+  <aside class="notes">
+    <p><b>~1.5 min.</b> Explain that “hat” describes intent and authorization, while “team” describes a role in a security exercise.</p>
+    <p>Red team focuses on testing through attacks; blue team focuses on defence and response. Purple team is collaboration between both.</p>
+    <p>Stress that gray-hat activity is not automatically safe or legal, and CTF practice should stay on deliberately authorized platforms.</p>
+  </aside>
+</section>
+
+<!-- 10 · CATEGORY MAP -->
+<section class="slide" data-title="The 8 categories" data-section="The categories">
+  <div class="kicker rise">Part 3 · The categories</div>
+  <div class="row between" style="align-items:flex-end">
+    <h2 class="title t-md rise" style="--i:1">The 8 challenge categories</h2>
+    <p class="small muted rise" style="--i:2">Click any card to jump to it</p>
+  </div>
+  <div class="grid g4 mt" style="gap:18px;flex:1">
+    <a class="card compact rise col" data-goto="11" href="#11" style="--i:2;--accent:var(--c-osint);text-decoration:none;color:inherit;gap:8px"><div class="row between center"><span class="cat-num" style="font-size:42px">01</span><div class="icon-box sm"><svg class="icon"><use href="#i-eye"/></svg></div></div><h3 style="font-size:24px;color:var(--accent)">OSINT</h3><p class="small muted">Find answers in public information</p><div class="level mt-auto">Beginner <i class="on"></i><i></i><i></i></div></a>
+    <a class="card compact rise col" data-goto="13" href="#13" style="--i:3;--accent:var(--c-crypto);text-decoration:none;color:inherit;gap:8px"><div class="row between center"><span class="cat-num" style="font-size:42px">02</span><div class="icon-box sm"><svg class="icon"><use href="#i-lock"/></svg></div></div><h3 style="font-size:24px;color:var(--accent)">Cryptography</h3><p class="small muted">Crack codes and ciphers</p><div class="level mt-auto">Beginner → Advanced <i class="on"></i><i class="on"></i><i class="on"></i></div></a>
+    <a class="card compact rise col" data-goto="15" href="#15" style="--i:4;--accent:var(--c-stego);text-decoration:none;color:inherit;gap:8px"><div class="row between center"><span class="cat-num" style="font-size:42px">03</span><div class="icon-box sm"><svg class="icon"><use href="#i-image"/></svg></div></div><h3 style="font-size:24px;color:var(--accent)">Steganography</h3><p class="small muted">Find messages hidden inside files</p><div class="level mt-auto">Beginner <i class="on"></i><i></i><i></i></div></a>
+    <a class="card compact rise col" data-goto="17" href="#17" style="--i:5;--accent:var(--c-forensics);text-decoration:none;color:inherit;gap:8px"><div class="row between center"><span class="cat-num" style="font-size:42px">04</span><div class="icon-box sm"><svg class="icon"><use href="#i-search"/></svg></div></div><h3 style="font-size:24px;color:var(--accent)">Forensics</h3><p class="small muted">Investigate digital evidence</p><div class="level mt-auto">Beginner → Intermediate <i class="on"></i><i class="on"></i><i></i></div></a>
+    <a class="card compact rise col" data-goto="19" href="#19" style="--i:6;--accent:var(--c-web);text-decoration:none;color:inherit;gap:8px"><div class="row between center"><span class="cat-num" style="font-size:42px">05</span><div class="icon-box sm"><svg class="icon"><use href="#i-globe"/></svg></div></div><h3 style="font-size:24px;color:var(--accent)">Web Exploitation</h3><p class="small muted">Find mistakes in websites</p><div class="level mt-auto">Beginner → Intermediate <i class="on"></i><i class="on"></i><i></i></div></a>
+    <a class="card compact rise col" data-goto="21" href="#21" style="--i:7;--accent:var(--c-reverse);text-decoration:none;color:inherit;gap:8px"><div class="row between center"><span class="cat-num" style="font-size:42px">06</span><div class="icon-box sm"><svg class="icon"><use href="#i-box"/></svg></div></div><h3 style="font-size:24px;color:var(--accent)">Reverse Engineering</h3><p class="small muted">Work out how a program works</p><div class="level mt-auto">Intermediate <i class="on"></i><i class="on"></i><i></i></div></a>
+    <a class="card compact rise col" data-goto="23" href="#23" style="--i:8;--accent:var(--c-pwn);text-decoration:none;color:inherit;gap:8px"><div class="row between center"><span class="cat-num" style="font-size:42px">07</span><div class="icon-box sm"><svg class="icon"><use href="#i-cpu"/></svg></div></div><h3 style="font-size:24px;color:var(--accent)">Binary Exploitation</h3><p class="small muted">Make programs misbehave through memory bugs</p><div class="level mt-auto">Advanced <i class="on"></i><i class="on"></i><i class="on"></i></div></a>
+    <a class="card compact rise col" data-goto="25" href="#25" style="--i:9;--accent:var(--c-misc);text-decoration:none;color:inherit;gap:8px"><div class="row between center"><span class="cat-num" style="font-size:42px">08</span><div class="icon-box sm"><svg class="icon"><use href="#i-puzzle"/></svg></div></div><h3 style="font-size:24px;color:var(--accent)">Miscellaneous</h3><p class="small muted">Everything else: puzzles, code, oddities</p><div class="level mt-auto">Varies <i class="on"></i><i class="on"></i><i></i></div></a>
+  </div>
+  <p class="small muted mt rise" style="--i:10">For each one: <strong>what it is</strong> · <strong>a typical challenge</strong> · <strong>clues to look for</strong> · <strong>how to approach it</strong> · <strong>tools</strong> · <strong>a tiny example</strong> · <strong>where to practise</strong>. Some CTFs file steganography under Forensics or Misc.</p>
+  <aside class="notes">
+    <p><b>~1 min.</b> This is the map for the main part. Point out the difficulty dots: OSINT, stego and classic crypto are the friendliest starting points. Binary exploitation is the "final boss", but even it has beginner challenges.</p>
+    <p>If time is short, you can click a card to jump straight to a category and skip others.</p>
+  </aside>
+</section>
+
+<!-- =====================================================================
+     PART 3 — CATEGORIES
+     ===================================================================== -->
+
+<!-- 11 · OSINT A -->
+<section class="slide" data-title="OSINT: what it is" data-section="Category 01 · OSINT" style="--accent:var(--c-osint)">
+  <div class="cat-head rise">
+    <span class="cat-num">01</span>
+    <div><div class="kicker" style="margin-bottom:6px">Category · Beginner-friendly</div><h2 class="title t-lg">OSINT</h2></div>
+    <div class="level" style="margin-left:auto">Difficulty <i class="on"></i><i></i><i></i></div>
+  </div>
+  <p class="lead mt-s rise" style="--i:1"><strong>Open Source Intelligence:</strong> answering questions using information that is already <span class="hl">publicly available</span>. ("Open source" here means public, not free software.)</p>
+  <div class="row mt" style="gap:36px;flex:1">
+    <div class="col" style="width:720px;gap:20px">
+      <div class="rise" style="--i:2">
+        <div class="chal">
+          <header><span>Campus Snapshot</span><span class="pts">OSINT · 100 pts</span></header>
+          <div class="body">"Our club posted this photo from last year's event. In which <strong>city</strong> was it taken? Flag format: <span class="term">FLAG{city}</span>"
+            <div><span class="file"><svg class="icon"><use href="#i-image"/></svg>event_photo.jpg</span></div>
+            <div class="flagbox"><span>FLAG{...}</span><b>Submit</b></div>
+          </div>
+        </div>
+        <p class="illus-note">Illustrative challenge, written for this workshop</p>
+      </div>
+      <div class="rise" style="--i:3">
+        <h4>Clues to look for</h4>
+        <div class="chips mt-s">
+          <span class="chip">Signs and shop names</span><span class="chip">Language on signs</span><span class="chip">Landmarks and skyline</span>
+          <span class="chip">Car number plates</span><span class="chip">Shadows and weather</span><span class="chip">Usernames</span><span class="chip">Hidden photo metadata</span>
+        </div>
+      </div>
+      <div class="jargon rise mt-auto" style="--i:4"><svg class="icon"><use href="#i-book"/></svg><span><b>Metadata</b> = "data about data". A photo file can secretly store the camera model, the date and sometimes GPS coordinates. The standard format for photo metadata is called <b>EXIF</b>.</span></div>
+    </div>
+    <div class="grow rise" style="--i:3">
+      <div class="frame">
+        <svg class="illus" viewBox="0 0 560 430" role="img" aria-label="A photo of a campus building with a magnifying glass over a street sign; labels point to the sign, a landmark and hidden metadata">
+          <defs><linearGradient id="g-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a2b4a"/><stop offset="1" stop-color="#3b3355"/></linearGradient>
+          <clipPath id="c-lens"><circle cx="372" cy="250" r="62"/></clipPath></defs>
+          <rect width="560" height="430" fill="url(#g-sky)"/>
+          <circle cx="470" cy="70" r="28" fill="#ffb547" opacity=".85"/>
+          <!-- skyline / landmark tower -->
+          <path d="M60 300V170h18v-30h10v-40l6-20 6 20v40h10v30h18v130z" fill="#0d1626" stroke="#ffb547" stroke-opacity=".5"/>
+          <!-- main building -->
+          <rect x="170" y="150" width="270" height="160" fill="#111b2e" stroke="#ffb547" stroke-opacity=".6"/>
+          <path d="M160 152 L305 92 L450 152z" fill="#162238" stroke="#ffb547" stroke-opacity=".6"/>
+          <g fill="#ffb547" opacity=".35"><rect x="192" y="180" width="34" height="44"/><rect x="246" y="180" width="34" height="44"/><rect x="330" y="180" width="34" height="44"/><rect x="384" y="180" width="34" height="44"/></g>
+          <rect x="285" y="240" width="42" height="70" fill="#0a1220" stroke="#ffb547" stroke-opacity=".6"/>
+          <rect x="226" y="122" width="158" height="22" rx="3" fill="#0a1220"/><text x="305" y="138" fill="#ffd08a" font-family="Montserrat" font-size="13" text-anchor="middle" letter-spacing="2">SCIENCE LIBRARY</text>
+          <!-- ground & sign -->
+          <rect y="310" width="560" height="120" fill="#141a26"/>
+          <rect x="340" y="230" width="6" height="90" fill="#6b7a8f"/>
+          <rect x="318" y="226" width="110" height="34" rx="4" fill="#1f6f4a"/>
+          <text x="373" y="248" fill="#fff" font-family="Inter" font-size="13" text-anchor="middle" font-weight="600">Rue Example</text>
+          <!-- people -->
+          <g fill="#2c3a55"><circle cx="120" cy="330" r="9"/><rect x="111" y="341" width="18" height="34" rx="6"/><circle cx="470" cy="336" r="9"/><rect x="461" y="347" width="18" height="34" rx="6"/></g>
+          <!-- magnifier -->
+          <g clip-path="url(#c-lens)"><rect x="300" y="180" width="150" height="140" fill="#1a2238"/><rect x="300" y="226" width="150" height="40" fill="#1f6f4a"/><text x="372" y="254" fill="#fff" font-family="Inter" font-size="16" text-anchor="middle" font-weight="700">Rue Example</text></g>
+          <circle cx="372" cy="250" r="62" fill="none" stroke="#ffb547" stroke-width="6"/>
+          <path d="M416 294 L470 348" stroke="#ffb547" stroke-width="12" stroke-linecap="round"/>
+          <!-- callouts -->
+          <g font-family="Inter" font-size="14" fill="#fff">
+            <rect x="16" y="16" width="214" height="54" rx="8" fill="rgba(0,0,0,.65)" stroke="#ffb547"/>
+            <text x="28" y="38">Street name in French</text><text x="28" y="58" fill="#ffd08a">→ narrows the country</text>
+            <rect x="16" y="360" width="250" height="54" rx="8" fill="rgba(0,0,0,.65)" stroke="#ffb547"/>
+            <text x="28" y="382">Distinctive tower</text><text x="28" y="402" fill="#ffd08a">→ try a reverse image search</text>
+            <rect x="320" y="16" width="120" height="30" rx="8" fill="rgba(0,0,0,.65)" stroke="#ffb547" stroke-dasharray="4 4"/>
+            <text x="332" y="36" fill="#ffd08a">EXIF: GPS?</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>~1.5 min.</b> Ask the room: "Looking at this picture, what would you search for first?" Get 2–3 answers. Usually: the sign, the tower, the language.</p>
+    <p>Important nuance: most social networks strip EXIF metadata when you upload a photo, but CTF files often keep it on purpose.</p>
+    <p><b>Ethics:</b> OSINT challenges use material made for the challenge. Never use these techniques to track real private people.</p>
+  </aside>
+</section>
+
+<!-- 12 · OSINT B -->
+<section class="slide" data-title="OSINT: approach & tools" data-section="Category 01 · OSINT" style="--accent:var(--c-osint)">
+  <div class="row between center rise"><div><div class="kicker" style="margin-bottom:6px">01 · OSINT</div><h2 class="title t-md">How to approach it</h2></div><div class="row center" style="gap:12px"><span class="pill ghost small">Public information only</span><a class="pill small doc-link" data-doc href="docs/categories/01-OSINT.md" target="_blank" rel="noopener" title="Open the in-depth OSINT guide"><svg class="icon"><use href="#i-book"/></svg>Full guide</a></div></div>
+  <div class="grid mt" style="grid-template-columns:1fr 1fr 1.15fr;gap:34px;flex:1">
+    <div class="rise" style="--i:1">
+      <h4>A beginner's game plan</h4>
+      <ol class="steps mt-s">
+        <li>Read the question: what exactly is the flag? A city? A date? A name?</li>
+        <li>Check the file itself first: run <strong>ExifTool</strong> for metadata.</li>
+        <li>Search what you see: reverse image search, and type any visible text into a search engine.</li>
+        <li>Narrow it down with search operators and maps.</li>
+        <li>Confirm with two independent clues before submitting.</li>
+      </ol>
+    </div>
+    <div class="rise col" style="--i:2;gap:14px">
+      <h4>Tiny example: search operators</h4>
+      <div class="code" style="font-size:17px;white-space:normal"><div><span class="s">"Science Library"</span></div><div class="c">↳ only pages with this exact phrase</div>
+<div class="mt-s"><span class="k">site:</span>example.edu library</div><div class="c">↳ only results from one website</div>
+<div class="mt-s">campus map <span class="k">filetype:</span>pdf</div><div class="c">↳ only PDF files</div>
+<div class="mt-s">jaguar <span class="k">-car</span></div><div class="c">↳ remove results with "car"</div></div>
+      <p class="tiny muted">Source: <a href="https://support.google.com/websearch/answer/2466433" target="_blank" rel="noopener">Google Search Help: Refine searches</a></p>
+    </div>
+    <div class="rise col" style="--i:3;gap:12px">
+      <h4>Tools: why and when</h4>
+      <div class="tools">
+        <div class="tool"><a href="https://lens.google/" target="_blank" rel="noopener">Google Lens</a><span><span class="badge web-tool">browser</span></span><span class="why"><b>Got a picture?</b> Finds similar images and recognises landmarks.</span></div>
+        <div class="tool"><a href="https://www.google.com/maps" target="_blank" rel="noopener">Google Maps / Street View</a><span><span class="badge web-tool">browser</span></span><span class="why"><b>Got a candidate place?</b> "Walk" the street to confirm it.</span></div>
+        <div class="tool"><a href="https://exiftool.org/" target="_blank" rel="noopener">ExifTool</a><span><span class="badge install">install</span></span><span class="why"><b>Got the original file?</b> Reads hidden metadata: date, camera, GPS.</span></div>
+        <div class="tool"><a href="https://lookup.icann.org/" target="_blank" rel="noopener">ICANN Lookup (WHOIS)</a><span><span class="badge web-tool">browser</span></span><span class="why"><b>Got a website?</b> Shows who registered a domain and when (personal details are often hidden for privacy).</span></div>
+        <div class="tool"><a href="https://sherlockproject.xyz/" target="_blank" rel="noopener">Sherlock</a><span><span class="badge install">install</span></span><span class="why"><b>Got a username?</b> Searches many public platforms for matching public profiles.</span></div>
+        <div class="tool"><a href="https://www.zoomeye.ai/" target="_blank" rel="noopener">ZoomEye</a><span><span class="badge web-tool">browser</span> <span class="badge acct">account</span></span><span class="why"><b>Advanced:</b> a search engine for internet-connected devices. Look, never touch.</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="practice rise" style="--i:4"><span class="lbl">Practise</span>
+    <a class="link-arrow" href="https://tryhackme.com/room/ohsint" target="_blank" rel="noopener">TryHackMe: OhSINT room <svg class="icon"><use href="#i-ext"/></svg></a>
+    <a class="link-arrow" href="https://bellingcat.gitbook.io/toolkit" target="_blank" rel="noopener">Bellingcat's Online Investigation Toolkit <svg class="icon"><use href="#i-ext"/></svg></a>
+    <a class="link-arrow" href="https://learn.cylabacademy.org/library" target="_blank" rel="noopener">CyLab Security Academy library <svg class="icon"><use href="#i-ext"/></svg></a>
+  </div>
+  <aside class="notes">
+    <p><b>~1.5 min.</b> Search operators are the cheapest OSINT superpower. Quotes, <code>site:</code> and <code>-</code> are documented by Google; <code>filetype:</code> also works widely.</p>
+    <p>ZoomEye (formerly zoomeye.org, now zoomeye.ai) indexes devices and services exposed on the internet, similar to Shodan. It's for research and defence: viewing search results is fine, but connecting to or logging into systems you find is not.</p>
+    <p>Bellingcat is an investigative-journalism group; their toolkit is a free catalogue of OSINT tools with explanations.</p>
+  </aside>
+</section>
+
+<!-- 13 · CRYPTO A -->
+<section class="slide" data-title="Cryptography: what it is" data-section="Category 02 · Cryptography" style="--accent:var(--c-crypto)">
+  <div class="cat-head rise">
+    <span class="cat-num">02</span>
+    <div><div class="kicker" style="margin-bottom:6px">Category · Beginner → Advanced</div><h2 class="title t-lg">Cryptography</h2></div>
+    <div class="level" style="margin-left:auto">Difficulty <i class="on"></i><i class="on"></i><i class="on"></i></div>
+  </div>
+  <p class="lead mt-s rise" style="--i:1">Secret messages, and figuring them out. First, learn to tell three very different things apart:</p>
+  <div class="grid g3 mt" style="gap:20px">
+    <div class="card rise" style="--i:2">
+      <div class="row between center"><h3>Encoding</h3><div class="icon-box sm"><svg class="icon"><use href="#i-layers"/></svg></div></div>
+      <p class="small muted">Changes the <strong>format</strong>. No secret key: anyone can reverse it. Like writing a sentence in Morse code.</p>
+      <div class="code mt-s" style="font-size:17px;padding:10px 14px">Hi  <span class="p">→ Base64 →</span>  SGk=</div>
+    </div>
+    <div class="card rise" style="--i:3">
+      <div class="row between center"><h3>Encryption</h3><div class="icon-box sm"><svg class="icon"><use href="#i-key"/></svg></div></div>
+      <p class="small muted">Scrambles with a <strong>key</strong>. Only someone with the key can unscramble it. Like a locked box.</p>
+      <div class="code mt-s" style="font-size:17px;padding:10px 14px">HELLO <span class="p">→ Caesar, key 3 →</span> KHOOR</div>
+    </div>
+    <div class="card rise" style="--i:4">
+      <div class="row between center"><h3>Hashing</h3><div class="icon-box sm"><svg class="icon"><use href="#i-finger"/></svg></div></div>
+      <p class="small muted">A <strong>one-way fingerprint</strong>. You can't turn it back, but the same input always gives the same output.</p>
+      <div class="code mt-s" style="font-size:15px;padding:10px 14px">MD5("password") <span class="p">=</span><br>5f4dcc3b5aa765d61d8327deb882cf99</div>
+    </div>
+  </div>
+  <div class="row mt" style="gap:28px;flex:1">
+    <div class="rise grow" style="--i:5">
+      <h4>Clues: how to recognise what you're looking at</h4>
+      <div class="col mt-s" style="gap:8px;font-size:19px">
+        <div class="row" style="gap:12px"><span class="term" style="width:300px;flex:none">Ends with = or ==</span><span>letters, digits, + and / only → probably <strong>Base64</strong></span></div>
+        <div class="row" style="gap:12px"><span class="term" style="width:300px;flex:none">0–9 and a–f only</span><span>→ <strong>hexadecimal</strong> (two characters = one byte)</span></div>
+        <div class="row" style="gap:12px"><span class="term" style="width:300px;flex:none">01000110 01001100…</span><span>groups of 8 bits → <strong>binary</strong>, one character each</span></div>
+        <div class="row" style="gap:12px"><span class="term" style="width:300px;flex:none">SYNT{...}</span><span>word-shaped, letters shifted → <strong>Caesar / ROT13</strong></span></div>
+        <div class="row" style="gap:12px"><span class="term" style="width:300px;flex:none">exactly 32 hex characters</span><span>→ could be an <strong>MD5 hash</strong></span></div>
+      </div>
+    </div>
+    <div class="rise" style="--i:6;width:430px">
+      <div class="chal">
+        <header><span>Shifty Business</span><span class="pts">Crypto · 50 pts</span></header>
+        <div class="body">"Julius left a note for the club: <span class="term">SYNT{ebg13_vf_rnfl}</span>"<div class="small muted mt-s">Hint in the title: Julius… Caesar?</div></div>
+      </div>
+      <p class="illus-note">Illustrative challenge, written for this workshop</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>~2 min.</b> The #1 beginner confusion: calling Base64 "encryption". It isn't: there's no key, anyone can decode it.</p>
+    <p>Hex: computers store everything as bytes (8 bits, i.e. eight 0/1 values). Hexadecimal is a shorthand that writes each byte as two characters from 00 to FF.</p>
+    <p>MD5 is obsolete for security, but it shows up in CTFs. "Cracking" a hash means guessing inputs (often from a wordlist of common passwords) until one produces the same hash; you never actually reverse it.</p>
+    <p>The SYNT clue: FLAG shifted by 13 letters becomes SYNT. Spotting your flag format in disguise is a classic trick.</p>
+  </aside>
+</section>
+
+<!-- 14 · CRYPTO B -->
+<section class="slide" data-title="Cryptography: try it" data-section="Category 02 · Cryptography" style="--accent:var(--c-crypto)">
+  <div class="row between center rise"><div><div class="kicker" style="margin-bottom:6px">02 · Cryptography</div><h2 class="title t-md">Crack a Caesar cipher live</h2></div><div class="row center" style="gap:12px"><span class="pill ghost small">Interactive</span><a class="pill small doc-link" data-doc href="docs/categories/02-CRYPTOGRAPHY.md" target="_blank" rel="noopener" title="Open the in-depth Cryptography guide"><svg class="icon"><use href="#i-book"/></svg>Full guide</a></div></div>
+  <div class="grid mt" style="grid-template-columns:1.15fr 1fr;gap:36px;flex:1">
+    <div class="col rise" style="--i:1;gap:14px">
+      <div class="card col" style="gap:14px">
+        <label class="small muted" for="caesar-in">Ciphertext (edit it if you like)</label>
+        <input id="caesar-in" type="text" value="SYNT{ebg13_vf_rnfl}" spellcheck="false" autocomplete="off">
+        <div class="row center" style="gap:16px"><label for="caesar-k" class="small" style="white-space:nowrap">Shift every letter by <b class="accent" id="caesar-kv" style="font-family:var(--f-mono);font-size:24px">0</b></label><input id="caesar-k" type="range" min="0" max="25" value="0" aria-label="Caesar shift"></div>
+        <div id="caesar-out" style="font:600 34px/1.2 var(--f-mono);min-height:42px;word-break:break-all">SYNT{ebg13_vf_rnfl}</div>
+      </div>
+      <p class="small">Drag the slider until the text makes sense. Trying every possible key like this is called a <strong>brute-force attack</strong>, and with only 25 keys it takes seconds.</p>
+      <div class="card compact col" style="gap:8px">
+        <h4>Bonus: XOR, the CTF favourite</h4>
+        <p class="small">XOR compares bits: <strong>different = 1</strong>, <strong>same = 0</strong>. Applying the same key twice gives back the original.</p>
+        <div class="code" style="font-size:17px;padding:8px 14px">  01000001  <span class="c">'A'</span>
+<span class="p">⊕</span> 00100000  <span class="c">key</span>
+= 01100001  <span class="c">'a'</span></div>
+      </div>
+    </div>
+    <div class="col rise" style="--i:2;gap:18px">
+      <div>
+        <h4>A beginner's game plan</h4>
+        <ol class="steps mt-s">
+          <li>Encoding, cipher or hash? Look at the characters and the length.</li>
+          <li>Try the simplest ideas first: Base64, hex, ROT13.</li>
+          <li>Still stuck? Ask an identifier tool to guess the cipher.</li>
+          <li>Peel layer by layer: challenges often stack several encodings.</li>
+        </ol>
+      </div>
+      <div>
+        <h4>Tools: why and when</h4>
+        <div class="tools mt-s">
+          <div class="tool"><a href="https://gchq.github.io/CyberChef/" target="_blank" rel="noopener">CyberChef</a><span><span class="badge web-tool">browser</span></span><span class="why"><b>The "cyber Swiss army knife".</b> Chain operations like recipe steps; its <em>Magic</em> operation auto-detects common encodings.</span></div>
+          <div class="tool"><a href="https://www.dcode.fr/cipher-identifier" target="_blank" rel="noopener">dCode</a><span><span class="badge web-tool">browser</span></span><span class="why"><b>Unknown classic cipher?</b> Hundreds of solvers plus a <em>Cipher Identifier</em>.</span></div>
+          <div class="tool"><a href="https://www.python.org/" target="_blank" rel="noopener">Python</a><span><span class="badge install">optional</span></span><span class="why"><b>Repetitive or custom?</b> A few lines of code beat 1000 clicks. Learn it later.</span></div>
+        </div>
+      </div>
+      <div class="practice mt-auto"><span class="lbl">Practise</span>
+        <a class="link-arrow" href="https://cryptohack.org/" target="_blank" rel="noopener">CryptoHack <svg class="icon"><use href="#i-ext"/></svg></a>
+        <a class="link-arrow" href="https://learn.cylabacademy.org/library" target="_blank" rel="noopener">CyLab library (Cryptography) <svg class="icon"><use href="#i-ext"/></svg></a>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>~2 min.</b> Live demo: drag the slider slowly from 0 up to 13 and let the room shout when it becomes readable: <code>FLAG{rot13_is_easy}</code>. ROT13 is a Caesar shift of 13, and applying it twice gives back the original (26 letters).</p>
+    <p>You can type any text into the box, e.g. a volunteer's name, and show what a shift of 3 does.</p>
+    <p>Higher difficulty crypto (RSA, AES misuse) needs maths, which is what CryptoHack teaches step by step, for free.</p>
+  </aside>
+</section>
+
+<!-- 15 · STEGO A -->
+<section class="slide" data-title="Steganography: what it is" data-section="Category 03 · Steganography" style="--accent:var(--c-stego)">
+  <div class="cat-head rise">
+    <span class="cat-num">03</span>
+    <div><div class="kicker" style="margin-bottom:6px">Category · Beginner-friendly</div><h2 class="title t-lg">Steganography</h2></div>
+    <div class="level" style="margin-left:auto">Difficulty <i class="on"></i><i></i><i></i></div>
+  </div>
+  <p class="lead mt-s rise" style="--i:1">Hiding a message so that <span class="hl">nobody even notices</span> it exists. From the Greek for "covered writing".</p>
+  <div class="row mt" style="gap:36px;flex:1">
+    <div class="col" style="width:640px;gap:18px">
+      <div class="grid g2 rise" style="--i:2;gap:14px">
+        <div class="card compact"><h4 style="color:var(--c-crypto)">Cryptography</h4><p class="small">Everyone can <strong>see</strong> there is a secret, but they can't read it. 🔒</p></div>
+        <div class="card compact"><h4>Steganography</h4><p class="small">Nobody even <strong>notices</strong> there is a secret at all. 🫥</p></div>
+      </div>
+      <div class="rise" style="--i:3">
+        <div class="chal">
+          <header><span>Innocent Cat</span><span class="pts">Stego · 150 pts</span></header>
+          <div class="body">"Just a cute cat picture… or is it?"<div><span class="file"><svg class="icon"><use href="#i-image"/></svg>cat.png · 2.8 MB</span></div></div>
+        </div>
+        <p class="illus-note">Illustrative challenge, written for this workshop</p>
+      </div>
+      <div class="rise" style="--i:4">
+        <h4>Clues to look for</h4>
+        <div class="chips mt-s"><span class="chip">File much bigger than expected</span><span class="chip">Odd metadata comments</span><span class="chip">Noise in one area</span><span class="chip">Readable text inside the file</span><span class="chip">Audio with strange noise</span></div>
+      </div>
+    </div>
+    <div class="grow col rise" style="--i:3;gap:14px">
+      <div class="frame" style="border-width:10px;padding:14px">
+        <div id="lsb-grid" class="pixels" role="img" aria-label="A grid of coloured pixels that hides the word FLAG in the last bit of each pixel"></div>
+      </div>
+      <button class="btn" id="lsb-toggle" aria-pressed="false" type="button"><svg class="icon"><use href="#i-eye"/></svg><span class="lbl">Show only the last bit of each pixel</span></button>
+      <p class="small muted" id="lsb-caption" style="min-height:56px">Normal view: the hidden bits change each colour by at most 1 out of 256, which the eye cannot see.</p>
+      <div class="jargon"><svg class="icon"><use href="#i-book"/></svg><span>Each pixel's colour is stored as numbers like <span class="term">1011010<b>1</b></span>. Changing the <b>last bit</b> (the "least significant bit", <b>LSB</b>) hides one bit of a message per pixel.</span></div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>~1.5 min.</b> Click the button to reveal the hidden word. The pixel values really differ only in the last bit, just like real LSB steganography.</p>
+    <p>Key distinction: crypto hides the <i>meaning</i>, stego hides the <i>existence</i>. In CTFs they are often combined: the hidden text might also be Base64.</p>
+  </aside>
+</section>
+
+<!-- 16 · STEGO B -->
+<section class="slide" data-title="Steganography: approach & tools" data-section="Category 03 · Steganography" style="--accent:var(--c-stego)">
+  <div class="row between center rise"><div><div class="kicker" style="margin-bottom:6px">03 · Steganography</div><h2 class="title t-md">How to approach it</h2></div><a class="pill small doc-link" data-doc href="docs/categories/03-STEGANOGRAPHY.md" target="_blank" rel="noopener" title="Open the in-depth Steganography guide"><svg class="icon"><use href="#i-book"/></svg>Full guide</a></div>
+  <div class="grid mt" style="grid-template-columns:1fr 1.15fr 1fr;gap:34px;flex:1">
+    <div class="rise" style="--i:1">
+      <h4>A beginner's game plan</h4>
+      <ol class="steps mt-s">
+        <li>Read the metadata (ExifTool).</li>
+        <li>Look for readable text and check the file size.</li>
+        <li>Browse colour channels and bit planes.</li>
+        <li>Check for files appended or hidden inside.</li>
+        <li>Password hint in the description? Try steghide with it.</li>
+      </ol>
+    </div>
+    <div class="rise col" style="--i:2;gap:12px">
+      <h4>Tiny example: data after the end</h4>
+      <p class="small">A PNG image officially ends with an <span class="term">IEND</span> marker. Image viewers ignore anything after it, but the bytes are still there:</p>
+      <div class="code" style="font-size:15px;padding:12px 14px"><span class="c">00004a30:</span> 0000 0000 <span class="k">4945 4e44</span> ae42 6082 <span class="m">464c 4147</span>  ....<span class="k">IEND</span>.B`.<span class="m">FLAG</span>
+<span class="c">00004a40:</span> <span class="m">7b68 6964 6465 6e5f 6166 7465 725f 7468</span>  <span class="m">{hidden_after_th</span>
+<span class="c">00004a50:</span> <span class="m">655f 656e 647d</span>                           <span class="m">e_end}</span></div>
+      <div class="jargon"><svg class="icon"><use href="#i-book"/></svg><span>A <b>hex editor</b> shows a file's raw bytes: hexadecimal numbers in the middle, the same bytes as text on the right.</span></div>
+    </div>
+    <div class="rise col" style="--i:3;gap:12px">
+      <h4>Tools: why and when</h4>
+      <div class="tools">
+        <div class="tool"><a href="https://www.aperisolve.com/" target="_blank" rel="noopener">Aperi'Solve</a><span><span class="badge web-tool">browser</span></span><span class="why"><b>First stop for any image.</b> Upload it and it runs zsteg, steghide, binwalk, ExifTool and more, then shows every bit layer.</span></div>
+        <div class="tool"><a href="https://georgeom.net/StegOnline/" target="_blank" rel="noopener">StegOnline</a><span><span class="badge web-tool">browser</span></span><span class="why"><b>Want to explore yourself?</b> Browse bit planes and extract LSB data.</span></div>
+        <div class="tool"><a href="https://exiftool.org/" target="_blank" rel="noopener">ExifTool</a><span><span class="badge install">install</span></span><span class="why"><b>Always.</b> Comments and odd fields are classic hiding spots.</span></div>
+        <div class="tool"><a href="https://hexed.it/" target="_blank" rel="noopener">HexEd.it</a><span><span class="badge web-tool">browser</span></span><span class="why"><b>Look at raw bytes</b> without installing anything.</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="practice rise" style="--i:4"><span class="lbl">Practise</span>
+    <a class="link-arrow" href="https://learn.cylabacademy.org/library" target="_blank" rel="noopener">CyLab library (Forensics includes stego) <svg class="icon"><use href="#i-ext"/></svg></a>
+    <a class="link-arrow" href="https://www.root-me.org/" target="_blank" rel="noopener">Root-Me (Steganography section) <svg class="icon"><use href="#i-ext"/></svg></a>
+    <span class="small muted">⚠ Aperi'Solve uploads your file to its server: fine for CTF files, not for private photos.</span>
+  </div>
+  <aside class="notes">
+    <p><b>~1.5 min.</b> The hex example is real PNG structure: the IEND chunk (bytes 49 45 4E 44, followed by its checksum AE 42 60 82) marks the end of the image. Appending data afterwards is one of the simplest hiding tricks.</p>
+    <p>binwalk and foremost look for whole files hidden inside other files (e.g. a ZIP glued to a JPEG). Aperi'Solve runs these for you.</p>
+  </aside>
+</section>
+
+<!-- 17 · FORENSICS A -->
+<section class="slide" data-title="Forensics: what it is" data-section="Category 04 · Forensics" style="--accent:var(--c-forensics)">
+  <div class="cat-head rise">
+    <span class="cat-num">04</span>
+    <div><div class="kicker" style="margin-bottom:6px">Category · Beginner → Intermediate</div><h2 class="title t-lg">Digital Forensics</h2></div>
+    <div class="level" style="margin-left:auto">Difficulty <i class="on"></i><i class="on"></i><i></i></div>
+  </div>
+  <p class="lead mt-s rise" style="--i:1">Being a detective for computers: examining <span class="hl">digital evidence</span> to reconstruct what happened.</p>
+  <div class="row mt" style="gap:30px;flex:1">
+    <div class="col" style="width:560px;gap:18px">
+      <div class="rise" style="--i:2">
+        <div class="chal">
+          <header><span>Broken Assignment</span><span class="pts">Forensics · 150 pts</span></header>
+          <div class="body">"This was submitted as <span class="term">essay.pdf</span>, but nothing can open it. What is it really?"<div><span class="file"><svg class="icon"><use href="#i-file"/></svg>essay.pdf</span></div></div>
+        </div>
+        <p class="illus-note">Illustrative challenge, written for this workshop</p>
+      </div>
+      <div class="grid g2 rise" style="--i:3;gap:12px">
+        <div class="card compact"><h4>Metadata</h4><p class="small">Who made a file, when, with what software.</p></div>
+        <div class="card compact"><h4>File carving</h4><p class="small">Recovering files from raw data, even deleted ones, by searching for signatures.</p></div>
+        <div class="card compact"><h4>PCAP</h4><p class="small">A "packet capture": a recording of network traffic, like CCTV for a network.</p></div>
+        <div class="card compact"><h4>Logs</h4><p class="small">Diaries kept by systems: who logged in, when, from where.</p></div>
+      </div>
+    </div>
+    <div class="grow col rise" style="--i:3;gap:14px">
+      <div class="card">
+        <h4>File signatures ("magic bytes")</h4>
+        <p class="small mt-s">The <strong>first bytes</strong> of a file reveal its real type, whatever its name or extension says.</p>
+        <div class="col mt" style="gap:10px;font-size:19px">
+          <div class="row center" style="gap:16px"><span class="term" style="width:200px">FF D8 FF</span><span class="grow">JPEG image</span></div>
+          <div class="row center" style="gap:16px"><span class="term" style="width:200px">89 50 4E 47</span><span class="grow">PNG image <span class="muted">(‰PNG)</span></span></div>
+          <div class="row center" style="gap:16px"><span class="term" style="width:200px">25 50 44 46</span><span class="grow">PDF document <span class="muted">(%PDF)</span></span></div>
+          <div class="row center" style="gap:16px"><span class="term" style="width:200px;border-color:var(--accent);color:var(--accent)">50 4B 03 04</span><span class="grow">ZIP archive <span class="muted">(PK…), also .docx, .xlsx, .apk</span></span></div>
+        </div>
+        <p class="tiny muted mt">Source: <a href="https://en.wikipedia.org/wiki/List_of_file_signatures" target="_blank" rel="noopener">List of file signatures</a></p>
+      </div>
+      <div class="jargon"><svg class="icon"><use href="#i-book"/></svg><span><b>Binary</b> = base 2 (only 0 and 1). <b>Hexadecimal</b> = base 16 (0–9, then A–F). One byte = 8 bits = two hex digits, from <span class="term">00</span> to <span class="term">FF</span>.</span></div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>~2 min.</b> Connect to slide 2: the mysterious "notes.pdf" that won't open. Check its signature!</p>
+    <p>Fun fact for the room: .docx, .xlsx, .pptx and Android .apk files are all ZIP archives inside. Rename one to .zip and you can open it.</p>
+    <p>"PK" comes from Phil Katz, the creator of the ZIP format.</p>
+  </aside>
+</section>
+
+<!-- 18 · FORENSICS B -->
+<section class="slide" data-title="Forensics: approach & tools" data-section="Category 04 · Forensics" style="--accent:var(--c-forensics)">
+  <div class="row between center rise"><div><div class="kicker" style="margin-bottom:6px">04 · Digital Forensics</div><h2 class="title t-md">How to approach it</h2></div><a class="pill small doc-link" data-doc href="docs/categories/04-DIGITAL-FORENSICS.md" target="_blank" rel="noopener" title="Open the in-depth Digital Forensics guide"><svg class="icon"><use href="#i-book"/></svg>Full guide</a></div>
+  <div class="grid mt" style="grid-template-columns:1fr 1.15fr 1fr;gap:34px;flex:1">
+    <div class="rise" style="--i:1">
+      <h4>A beginner's game plan</h4>
+      <ol class="steps mt-s">
+        <li>Ask "what is this file <em>really</em>?"</li>
+        <li>Pull out readable text.</li>
+        <li>Look at the raw bytes.</li>
+        <li>Open it with the specialised tool: Wireshark for PCAPs, Autopsy for disk images.</li>
+        <li>Build a timeline of what happened.</li>
+      </ol>
+    </div>
+    <div class="rise col" style="--i:2;gap:12px">
+      <h4>Tiny example: three commands</h4>
+      <div class="code" style="font-size:16px;padding:12px 16px"><span class="p">$</span> file essay.pdf
+essay.pdf: <span class="m">Zip archive data</span>, at least v2.0
+<span class="p">$</span> xxd -l 8 essay.pdf
+00000000: <span class="k">504b 0304</span> 1400 0000  <span class="k">PK</span>......
+<span class="p">$</span> strings capture.pcap | grep FLAG
+<span class="s">FLAG{packets_tell_stories}</span></div>
+      <p class="small"><span class="term">file</span> names the real type · <span class="term">xxd</span> shows bytes in hex · <span class="term">strings</span> prints readable text · <span class="term">|</span> passes the output to the next command</p>
+      <div class="jargon"><svg class="icon"><use href="#i-terminal"/></svg><span>A <b>terminal</b> is a text window where you type commands instead of clicking. These three are built into most Linux systems and macOS. On Windows, use WSL (Linux inside Windows).</span></div>
+    </div>
+    <div class="rise col" style="--i:3;gap:12px">
+      <h4>Tools: why and when</h4>
+      <div class="tools">
+        <div class="tool"><a href="https://www.wireshark.org/" target="_blank" rel="noopener">Wireshark</a><span><span class="badge install">install</span></span><span class="why"><b>Got a .pcap?</b> Read each conversation; <em>Export Objects</em> pulls out files that were transferred.</span></div>
+        <div class="tool"><a href="https://www.autopsy.com/" target="_blank" rel="noopener">Autopsy</a><span><span class="badge install">install</span></span><span class="why"><b>Got a disk image?</b> A point-and-click tool, built on <a href="https://www.sleuthkit.org/" target="_blank" rel="noopener">The Sleuth Kit</a>, that recovers deleted files.</span></div>
+        <div class="tool"><a href="https://gchq.github.io/CyberChef/" target="_blank" rel="noopener">CyberChef</a><span><span class="badge web-tool">browser</span></span><span class="why"><b>Found weird data?</b> Decode what you extracted.</span></div>
+        <div class="tool"><a href="https://github.com/volatilityfoundation/volatility3" target="_blank" rel="noopener">Volatility 3</a><span><span class="badge adv">advanced</span></span><span class="why"><b>Got a RAM dump?</b> Lists the programs and connections that were in memory.</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="practice rise" style="--i:4"><span class="lbl">Practise</span>
+    <a class="link-arrow" href="https://learn.cylabacademy.org/library" target="_blank" rel="noopener">CyLab library (Forensics) <svg class="icon"><use href="#i-ext"/></svg></a>
+    <a class="link-arrow" href="https://tryhackme.com/room/wiresharkthebasics" target="_blank" rel="noopener">TryHackMe: Wireshark: The Basics <svg class="icon"><use href="#i-ext"/></svg></a>
+    <a class="link-arrow" href="https://cyberdefenders.org/" target="_blank" rel="noopener">CyberDefenders (blue-team labs) <svg class="icon"><use href="#i-ext"/></svg></a>
+  </div>
+  <aside class="notes">
+    <p><b>~2 min.</b> Walk through the three commands. The PCAP line is a typical first attempt: sometimes flags travel through the network in plain text.</p>
+    <p>Autopsy is a free, open-source digital-forensics platform that provides a graphical interface for The Sleuth Kit. Volatility analyses memory dumps (RAM snapshots), which is advanced but common in later CTFs.</p>
+  </aside>
+</section>
+
+<!-- 19 · WEB A -->
+<section class="slide" data-title="Web exploitation: what it is" data-section="Category 05 · Web" style="--accent:var(--c-web)">
+  <div class="cat-head rise">
+    <span class="cat-num">05</span>
+    <div><div class="kicker" style="margin-bottom:6px">Category · Beginner → Intermediate</div><h2 class="title t-lg">Web Exploitation</h2></div>
+    <div class="level" style="margin-left:auto">Difficulty <i class="on"></i><i class="on"></i><i></i></div>
+  </div>
+  <p class="lead mt-s rise" style="--i:1">Websites are built from many parts. One <span class="hl">small mistake</span> can expose data or allow something unintended.</p>
+  <div class="row mt" style="gap:30px;flex:1">
+    <div class="col grow" style="gap:16px">
+      <div class="card rise" style="--i:2;padding:18px 22px">
+        <h4>How the web talks: HTTP</h4>
+        <svg viewBox="0 0 760 150" style="width:100%;margin-top:6px" role="img" aria-label="The browser sends an HTTP request with a cookie; the server answers with a response">
+          <g fill="none" stroke="#b6f25a" stroke-width="2">
+            <rect x="4" y="30" width="130" height="90" rx="10"/><rect x="626" y="30" width="130" height="90" rx="10"/>
+            <path d="M144 58 H612" marker-end="url(#m-arr-web)"/><path d="M616 100 H148" marker-end="url(#m-arr-web)"/>
+          </g>
+          <defs><marker id="m-arr-web" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#b6f25a"/></marker></defs>
+          <g stroke="#b6f25a" fill="none" stroke-width="1.8"><use href="#i-globe" x="53" y="44" width="32" height="32"/><use href="#i-server" x="675" y="44" width="32" height="32"/></g>
+          <g font-family="Inter" font-size="14" fill="#9dbcc0" text-anchor="middle"><text x="69" y="104">your browser</text><text x="691" y="104">web server</text></g>
+          <g font-family="JetBrains Mono, monospace" font-size="15" text-anchor="middle">
+            <text x="380" y="46" fill="#fff">REQUEST: GET /grades   Cookie: session=a8f3…</text>
+            <text x="380" y="126" fill="#fff">RESPONSE: 200 OK  +  the HTML page</text>
+          </g>
+        </svg>
+        <p class="small muted"><strong>HTTP</strong> is the language of browsers and servers: a <em>request</em> asks, a <em>response</em> answers. A <strong>cookie</strong> is a small note the site stores in your browser so it remembers you are logged in (your <strong>session</strong>).</p>
+      </div>
+      <div class="grid g2 rise" style="--i:3;gap:14px">
+        <div class="card compact"><h4 class="row center" style="gap:8px"><svg class="icon"><use href="#i-id"/></svg>Authentication</h4><p class="small">"<strong>Who are you?</strong>" Showing your student card at the library entrance.</p></div>
+        <div class="card compact"><h4 class="row center" style="gap:8px"><svg class="icon"><use href="#i-key"/></svg>Authorization</h4><p class="small">"<strong>What may you do?</strong>" Your card opens the library, not the professors' office.</p></div>
+      </div>
+    </div>
+    <div class="col rise" style="--i:3;width:500px;gap:16px">
+      <div>
+        <div class="chal">
+          <header><span>Student Portal</span><span class="pts">Web · 100 pts</span></header>
+          <div class="body">"Our new grades portal is <em>totally</em> secure. Can you log in as <span class="term">admin</span>?"<div><span class="file"><svg class="icon"><use href="#i-globe"/></svg>http://portal.ctf.example</span></div></div>
+        </div>
+        <p class="illus-note">Illustrative challenge, written for this workshop</p>
+      </div>
+      <div>
+        <h4>Clues to look for</h4>
+        <div class="chips mt-s"><span class="chip">Comments in the HTML</span><span class="chip">Hidden form fields</span><span class="chip">Cookies like <b style="font-family:var(--f-mono)">role=student</b></span><span class="chip">Numbers in URLs: <b style="font-family:var(--f-mono)">?id=1042</b></span><span class="chip">Chatty error messages</span><span class="chip">/robots.txt</span></div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>~2 min.</b> Connect to slide 2: changing a number in the address bar and seeing someone else's timetable is an <b>authorization</b> bug (often called IDOR: Insecure Direct Object Reference). The site checked who you are, but not whether that record is yours.</p>
+    <p><code>/robots.txt</code> is a public file that tells search engines which pages to skip, and sometimes accidentally lists "secret" pages.</p>
+  </aside>
+</section>
+
+<!-- 20 · WEB B -->
+<section class="slide web-exploit-slide" data-title="Web exploitation: approach & tools" data-section="Category 05 · Web" style="--accent:var(--c-web)">
+  <div class="row between center rise"><div><div class="kicker" style="margin-bottom:6px">05 · Web Exploitation</div><h2 class="title t-md">Peek behind the page</h2></div><div class="row center" style="gap:12px"><span class="pill ghost small">Interactive</span><a class="pill small doc-link" data-doc href="docs/categories/05-WEB-EXPLOITATION.md" target="_blank" rel="noopener" title="Open the in-depth Web Exploitation guide"><svg class="icon"><use href="#i-book"/></svg>Full guide</a></div></div>
+  <div class="grid mt" style="grid-template-columns:1.1fr 1fr;gap:34px;flex:1">
+    <div class="col rise" style="--i:1;gap:14px">
+      <!-- mock browser -->
+      <div style="border:1.5px solid color-mix(in srgb,var(--accent) 55%,transparent);border-radius:14px;overflow:hidden;background:#02090b">
+        <div class="row center" style="gap:8px;padding:10px 14px;background:rgba(182,242,90,.08);font-size:15px">
+          <i style="width:11px;height:11px;border-radius:50%;background:var(--accent)"></i><i style="width:11px;height:11px;border-radius:50%;background:var(--accent);opacity:.5"></i><i style="width:11px;height:11px;border-radius:50%;background:var(--accent);opacity:.25"></i>
+          <span class="mono grow" style="margin-left:12px;padding:4px 12px;border-radius:999px;background:#000;color:var(--muted)">portal.ctf.example/login</span>
+        </div>
+        <div class="row" style="padding:20px 26px;gap:26px;align-items:center">
+          <div class="col" style="gap:10px;flex:1">
+            <b style="font:600 22px var(--f-title)">🎓 Student Portal</b>
+            <span style="border:1px solid #2a3b2a;border-radius:8px;padding:8px 12px;color:#5e7f84;font-size:16px">Username</span>
+            <span style="border:1px solid #2a3b2a;border-radius:8px;padding:8px 12px;color:#5e7f84;font-size:16px">Password</span>
+            <span style="background:var(--accent);color:#0b1400;border-radius:8px;padding:8px 12px;font-weight:700;text-align:center;font-size:16px">Log in</span>
+          </div>
+          <button class="btn" type="button" data-reveal="#devtools" data-label-shown="Close DevTools" style="flex:none"><svg class="icon"><use href="#i-code"/></svg><span class="lbl">Open DevTools (F12)</span></button>
+        </div>
+        <div id="devtools" class="reveal" style="border-top:1.5px solid color-mix(in srgb,var(--accent) 45%,transparent)">
+          <div class="code" style="border:0;border-radius:0;font-size:15px;padding:12px 18px;line-height:1.5"><span class="c">&lt;!-- Elements --&gt;</span>
+<span class="p">&lt;form</span> action="/login" method="POST"<span class="p">&gt;</span>
+  <span class="p">&lt;input</span> name="user"<span class="p">&gt;</span> <span class="p">&lt;input</span> name="pass" type="password"<span class="p">&gt;</span>
+  <span class="m">&lt;!-- TODO: delete test account  test / test123 --&gt;</span>
+<span class="p">&lt;/form&gt;</span>
+<span class="c">Application › Cookies:</span>  role = <span class="m">student</span>   <span class="c">← what if it said admin?</span>
+
+<span class="c">Network:</span>
+POST /login  <span class="m">200 OK</span>
+<span class="c">Payload:</span> user=student&amp;pass=test123
+<span class="c">Response:</span> {&quot;role&quot;:&quot;student&quot;,&quot;redirect&quot;:&quot;/grades&quot;}
+<span class="c">GET /grades</span>  <span class="m">200 OK</span>   <span class="c">← examine request and response details</span></div>
+        </div>
+      </div>
+      <div class="grid g2" style="gap:14px">
+        <div class="card compact"><h4>SQL injection (concept)</h4><p class="small">If a site glues your input directly into a database query (written in <strong>SQL</strong>, the language of databases), crafted input can change what the query means. <span class="muted">Fix: parameterised queries.</span></p></div>
+        <div class="card compact"><h4>XSS (concept)</h4><p class="small">Cross-Site Scripting: if a site shows your input without cleaning it, browsers may run it as <strong>code</strong>, in other visitors' browsers. <span class="muted">Fix: encode output.</span></p></div>
+      </div>
+    </div>
+    <div class="col rise" style="--i:2;gap:16px">
+      <div>
+        <h4>Tools: why and when</h4>
+        <div class="tools mt-s">
+          <div class="tool"><a href="https://developer.chrome.com/docs/devtools/" target="_blank" rel="noopener">Browser DevTools</a><span><span class="badge builtin">built in</span></span><span class="why"><b>Always first.</b> Press F12 to see HTML, cookies and every request.</span></div>
+          <div class="tool"><a href="https://portswigger.net/burp/communitydownload" target="_blank" rel="noopener">Burp Suite Community</a><span><span class="badge install">install</span></span><span class="why"><b>Want to edit requests?</b> A "proxy" between browser and site: pause, modify, resend. Free edition.</span></div>
+          <div class="tool"><a href="https://www.zaproxy.org/" target="_blank" rel="noopener">ZAP</a><span><span class="badge install">install</span></span><span class="why">Free, open-source alternative to Burp.</span></div>
+          <div class="tool"><a href="https://sqlmap.org/" target="_blank" rel="noopener">sqlmap</a><span><span class="badge install">install</span></span><span class="why"><b>For SQL injection labs.</b> Automates detecting and exploiting SQL injection flaws in authorized CTF targets.</span></div>
+          <div class="tool"><a href="https://github.com/ffuf/ffuf" target="_blank" rel="noopener">ffuf</a><span><span class="badge install">install</span></span><span class="why"><b>For web fuzzing.</b> Finds hidden paths, parameters and virtual hosts.</span></div>
+          <div class="tool"><a href="https://github.com/projectdiscovery/nuclei" target="_blank" rel="noopener">Nuclei</a><span><span class="badge install">install</span></span><span class="why"><b>Template-based scanning.</b> Checks authorized targets for vulnerabilities and misconfigurations.</span></div>
+          <div class="tool"><a href="https://cirt.net/Nikto2" target="_blank" rel="noopener">Nikto</a><span><span class="badge install">install</span></span><span class="why"><b>General web-server scan.</b> Identifies exposed files, outdated software and common risks.</span></div>
+          <div class="tool"><a href="https://curl.se/" target="_blank" rel="noopener">curl</a><span><span class="badge builtin">built in</span></span><span class="why"><b>Optional:</b> send requests from the terminal; preinstalled on Windows 10+, macOS and most Linux.</span></div>
+        </div>
+      </div>
+      <div class="card fill compact row center" style="gap:14px"><svg class="icon" style="font-size:30px"><use href="#i-alert"/></svg><p class="small" style="font-weight:600">Web CTFs are built to be attacked. Trying this on real sites without permission is illegal.</p></div>
+      <div class="practice mt-auto"><span class="lbl">Practise</span>
+        <a class="link-arrow" href="https://portswigger.net/web-security" target="_blank" rel="noopener">PortSwigger Web Security Academy <svg class="icon"><use href="#i-ext"/></svg></a>
+        <a class="link-arrow" href="https://owasp.org/www-project-juice-shop/" target="_blank" rel="noopener">OWASP Juice Shop <svg class="icon"><use href="#i-ext"/></svg></a>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>~2.5 min.</b> Click "Open DevTools". The HTML comment is a classic beginner web challenge: developers leave notes in code that every visitor can read. Then show F12 on any real page (e.g. this deck!) so students know where it is.</p>
+    <p>Cookies: in a well-built site, changing <code>role=student</code> to <code>admin</code> does nothing, because the server keeps the real role. Broken sites trust the cookie.</p>
+    <p>SQLi and XSS: concepts only. PortSwigger's Academy teaches both with legal labs. Sources: <a href="https://portswigger.net/web-security/sql-injection" target="_blank" rel="noopener">PortSwigger SQLi</a>, <a href="https://portswigger.net/web-security/cross-site-scripting" target="_blank" rel="noopener">PortSwigger XSS</a>.</p>
+  </aside>
+</section>
+
+<!-- 21 · REVERSE A -->
+<section class="slide" data-title="Reverse engineering: what it is" data-section="Category 06 · Reverse Engineering" style="--accent:var(--c-reverse)">
+  <div class="cat-head rise">
+    <span class="cat-num">06</span>
+    <div><div class="kicker" style="margin-bottom:6px">Category · Intermediate</div><h2 class="title t-lg">Reverse Engineering</h2></div>
+    <div class="level" style="margin-left:auto">Difficulty <i class="on"></i><i class="on"></i><i></i></div>
+  </div>
+  <p class="lead mt-s rise" style="--i:1">Working out how a program works, <span class="hl">without its original source code</span>.</p>
+  <div class="row mt" style="gap:34px;flex:1">
+    <div class="col grow rise" style="--i:2;gap:16px">
+      <div class="frame" style="border-width:10px">
+        <svg class="illus" viewBox="0 0 700 270" role="img" aria-label="A program shown as a closed puzzle box: one input gives Wrong password, the secret input gives the flag">
+          <defs><marker id="m-arr-re" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#ff8f4d"/></marker></defs>
+          <g font-family="JetBrains Mono, monospace" font-size="16">
+            <rect x="20" y="50" width="150" height="44" rx="8" fill="#02090b" stroke="#ff8f4d" stroke-opacity=".6"/><text x="95" y="78" fill="#fff" text-anchor="middle">"hello"</text>
+            <rect x="20" y="170" width="150" height="44" rx="8" fill="#02090b" stroke="#ff8f4d"/><text x="95" y="198" fill="#ffd08a" text-anchor="middle">"???"</text>
+          </g>
+          <path d="M176 72 H262" stroke="#ff8f4d" stroke-width="2" marker-end="url(#m-arr-re)"/><path d="M176 192 H262" stroke="#ff8f4d" stroke-width="2" marker-end="url(#m-arr-re)"/>
+          <!-- puzzle box -->
+          <g transform="translate(270 30)">
+            <path d="M80 0 L160 40 V170 L80 210 L0 170 V40z" fill="#120a05" stroke="#ff8f4d" stroke-width="2.5"/>
+            <path d="M0 40 L80 80 L160 40 M80 80 V210" fill="none" stroke="#ff8f4d" stroke-width="2"/>
+            <text x="80" y="62" font-family="Montserrat" font-size="40" fill="#ff8f4d" text-anchor="middle">?</text>
+            <text x="38" y="150" font-family="JetBrains Mono" font-size="13" fill="#ff8f4d" opacity=".8" transform="rotate(26 38 150)">01001</text>
+            <text x="102" y="160" font-family="JetBrains Mono" font-size="13" fill="#ff8f4d" opacity=".8" transform="rotate(-26 102 160)">check</text>
+            <text x="80" y="236" font-family="Inter" font-size="14" fill="#9dbcc0" text-anchor="middle">gatekeeper (program)</text>
+          </g>
+          <path d="M438 72 H500" stroke="#ff8f4d" stroke-width="2" marker-end="url(#m-arr-re)"/><path d="M438 192 H500" stroke="#ff8f4d" stroke-width="2" marker-end="url(#m-arr-re)"/>
+          <g font-family="Inter" font-size="16" font-weight="600">
+            <rect x="506" y="50" width="176" height="44" rx="8" fill="rgba(255,92,122,.12)" stroke="#ff5c7a"/><text x="594" y="78" fill="#ff9db0" text-anchor="middle">✗ Wrong password</text>
+            <rect x="506" y="170" width="176" height="44" rx="8" fill="rgba(110,242,168,.12)" stroke="#6ef2a8"/><text x="594" y="198" fill="#6ef2a8" text-anchor="middle">✓ FLAG{…}</text>
+          </g>
+        </svg>
+      </div>
+      <p class="small"><strong>Analogy:</strong> a puzzle box with no instructions. You shake it, look through the cracks and press buttons until you understand what's inside.</p>
+      <div class="jargon"><svg class="icon"><use href="#i-book"/></svg><span><b>Source code</b> = instructions written by humans (e.g. in C). <b>Compiling</b> turns it into machine code, an <b>executable</b> (.exe on Windows, ELF on Linux). <b>Assembly</b> is a human-readable spelling of machine code: tiny steps like "move", "compare", "jump". You don't need to read it on day one.</span></div>
+    </div>
+    <div class="col rise" style="--i:3;width:470px;gap:16px">
+      <div>
+        <div class="chal">
+          <header><span>Gatekeeper</span><span class="pts">Reversing · 200 pts</span></header>
+          <div class="body">"This program asks for a password. Find it, and it will reward you."<div><span class="file"><svg class="icon"><use href="#i-file"/></svg>gatekeeper (Linux executable)</span></div></div>
+        </div>
+        <p class="illus-note">Illustrative challenge, written for this workshop</p>
+      </div>
+      <div>
+        <h4>Clues to look for</h4>
+        <div class="chips mt-s"><span class="chip">Readable text inside</span><span class="chip">Comparisons with fixed values</span><span class="chip">Function names like check_password</span><span class="chip">File type: .exe, ELF, .apk, .pyc</span></div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>~2 min.</b> Reverse engineering is also a real job: malware analysts reverse viruses to understand and stop them.</p>
+    <p>Keep assembly as a concept only. Modern tools (decompilers) translate machine code back into C-like code, so beginners rarely read raw assembly at first.</p>
+  </aside>
+</section>
+
+<!-- 22 · REVERSE B -->
+<section class="slide" data-title="Reverse engineering: approach & tools" data-section="Category 06 · Reverse Engineering" style="--accent:var(--c-reverse)">
+  <div class="row between center rise"><div><div class="kicker" style="margin-bottom:6px">06 · Reverse Engineering</div><h2 class="title t-md">How to approach it</h2></div><a class="pill small doc-link" data-doc href="docs/categories/06-REVERSE-ENGINEERING.md" target="_blank" rel="noopener" title="Open the in-depth Reverse Engineering guide"><svg class="icon"><use href="#i-book"/></svg>Full guide</a></div>
+  <div class="grid g2 mt rise" style="--i:1;gap:18px">
+    <div class="card compact row" style="gap:16px"><div class="icon-box sm"><svg class="icon"><use href="#i-book"/></svg></div><div><h4>Static analysis</h4><p class="small">Study it <strong>without running</strong> it: read its text, decompile it. Like reading the puzzle box's blueprint.</p></div></div>
+    <div class="card compact row" style="gap:16px"><div class="icon-box sm"><svg class="icon"><use href="#i-play"/></svg></div><div><h4>Dynamic analysis</h4><p class="small"><strong>Run it and observe</strong>, ideally inside a virtual machine (a safe "computer inside your computer").</p></div></div>
+  </div>
+  <div class="grid mt" style="grid-template-columns:1fr 1.15fr 1fr;gap:30px;flex:1">
+    <div class="rise" style="--i:2">
+      <h4>A beginner's game plan</h4>
+      <ol class="steps mt-s">
+        <li>Identify the file type.</li>
+        <li>Run <span class="term">strings</span>: sometimes the answer is just sitting there.</li>
+        <li>Run it (safely) and watch what it does.</li>
+        <li>Open it in Ghidra and find the password check.</li>
+        <li>Rebuild the logic and get the flag.</li>
+      </ol>
+    </div>
+    <div class="rise col" style="--i:3;gap:10px">
+      <h4>Tiny example</h4>
+      <div class="code" style="font-size:15px;padding:10px 14px"><span class="p">$</span> strings gatekeeper
+Enter password:
+Wrong password!
+<span class="m">s3cr3t_k3y</span>
+Correct! Here is your flag:</div>
+      <div class="code" style="font-size:15px;padding:10px 14px"><span class="c">// Ghidra's decompiler turns machine code back into C-like code</span>
+<span class="k">if</span> (strcmp(input, <span class="s">"s3cr3t_k3y"</span>) == 0) {
+    puts(<span class="s">"Correct! Here is your flag:"</span>);
+    print_flag();
+}</div>
+    </div>
+    <div class="rise col" style="--i:4;gap:12px">
+      <h4>Tools: why and when</h4>
+      <div class="tools">
+        <div class="tool"><a href="https://ghidra-sre.org/" target="_blank" rel="noopener">Ghidra</a><span><span class="badge install">install</span></span><span class="why"><b>The main tool.</b> Free decompiler released by the NSA. Needs Java.</span></div>
+        <div class="tool"><span class="name accent">strings</span><span><span class="badge builtin">built in</span></span><span class="why"><b>First 10 seconds</b> of every challenge.</span></div>
+        <div class="tool"><a href="https://hex-rays.com/ida-free/" target="_blank" rel="noopener">IDA</a><span><span class="badge install">install</span></span><span class="why"><b>Disassembly and decompilation.</b> Inspect native executables and maps with a powerful debugger.</span></div>
+        <div class="tool"><a href="https://github.com/skylot/jadx" target="_blank" rel="noopener">JADX</a><span><span class="badge install">install</span></span><span class="why"><b>Android app?</b> Turns .apk files into readable Java code.</span></div>
+        <div class="tool"><a href="https://x64dbg.com/" target="_blank" rel="noopener">x64dbg</a><span><span class="badge install">install</span></span><span class="why"><b>Windows debugger.</b> Step through 32-bit and 64-bit binaries and inspect registers, memory and calls.</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="practice rise" style="--i:5"><span class="lbl">Practise</span>
+    <a class="link-arrow" href="https://learn.cylabacademy.org/library" target="_blank" rel="noopener">CyLab library (Reverse Engineering) <svg class="icon"><use href="#i-ext"/></svg></a>
+    <a class="link-arrow" href="https://crackmes.one/" target="_blank" rel="noopener">crackmes.one <svg class="icon"><use href="#i-ext"/></svg></a>
+    <span class="small muted">⚠ Only run challenge programs inside a virtual machine.</span>
+  </div>
+  <aside class="notes">
+    <p><b>~2 min.</b> The <code>strings</code> example works on real beginner challenges more often than you'd think: if a password is stored as plain text, it appears in the output.</p>
+    <p>crackmes.one hosts small community-made "crackme" programs designed to be reversed, rated by difficulty. Never run unknown programs on your main machine.</p>
+  </aside>
+</section>
+
+<!-- 23 · PWN A -->
+<section class="slide" data-title="Binary exploitation: what it is" data-section="Category 07 · Binary Exploitation" style="--accent:var(--c-pwn)">
+  <div class="cat-head rise">
+    <span class="cat-num">07</span>
+    <div><div class="kicker" style="margin-bottom:6px">Category · Advanced (a.k.a. "Pwn")</div><h2 class="title t-lg">Binary Exploitation</h2></div>
+    <div class="level" style="margin-left:auto">Difficulty <i class="on"></i><i class="on"></i><i class="on"></i></div>
+  </div>
+  <p class="lead mt-s rise" style="--i:1">Making a program misbehave by giving it input it <span class="hl">wasn't built to handle</span>.</p>
+  <div class="row mt" style="gap:34px;flex:1">
+    <div class="col rise" style="--i:2;width:520px;gap:12px">
+      <div class="jargon"><svg class="icon"><use href="#i-book"/></svg><span><b>Memory (RAM)</b> = a program's workspace: a long row of numbered boxes, each holding one byte.</span></div>
+      <div class="jargon"><svg class="icon"><use href="#i-book"/></svg><span><b>Buffer</b> = a fixed number of boxes set aside for some data, e.g. 8 boxes for a name.</span></div>
+      <div class="jargon"><svg class="icon"><use href="#i-book"/></svg><span><b>Stack</b> = short-term memory for the function currently running, piled up like plates. <b>Heap</b> = memory requested while the program runs, for data whose size isn't known in advance.</span></div>
+      <div class="jargon"><svg class="icon"><use href="#i-book"/></svg><span><b>Buffer overflow</b> = writing more data than the buffer holds, so it spills into the neighbouring boxes.</span></div>
+    </div>
+    <div class="grow col rise" style="--i:3;gap:16px">
+      <div class="card col" style="gap:16px">
+        <h4>Try it: overflow the buffer</h4>
+        <label class="small" for="bof-in">The program asks: <span class="term">Enter your name:</span> <span class="muted">(it reserved 8 boxes)</span></label>
+        <input id="bof-in" type="text" value="Alice" spellcheck="false" autocomplete="off" maxlength="40">
+        <div id="bof-mem">
+          <div class="row" style="gap:18px;align-items:flex-end">
+            <div class="col" style="gap:6px"><div class="mem"><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span><span class="cell"></span></div><div class="mem-label">buffer: name[8]</div></div>
+            <div class="col" style="gap:6px"><div class="mem"><span class="cell ret" data-orig="0x40">0x40</span><span class="cell ret" data-orig="11">11</span><span class="cell ret" data-orig="b6">b6</span><span class="cell ret" data-orig="00">00</span></div><div class="mem-label" style="color:#ffd08a">saved return address</div></div>
+          </div>
+        </div>
+        <p id="bof-status" class="small" style="min-height:62px"></p>
+      </div>
+      <p class="small muted">The <strong>return address</strong> is a note telling the program where to continue when a function ends. Overwrite it with garbage and the program crashes. In CTFs, players carefully control what gets overwritten.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>~2 min.</b> Type a long name live (e.g. "AAAAAAAAAAAA") and watch the yellow boxes turn red. That is the core idea of a buffer overflow, the most classic memory bug.</p>
+    <p>Real programs have defences (we'll see checksec next). Keep it conceptual: no exploit code in this workshop.</p>
+    <p>Source for further reading: <a href="https://ctf101.org/binary-exploitation/buffer-overflow/" target="_blank" rel="noopener">CTF101: Buffer overflow</a>.</p>
+  </aside>
+</section>
+
+<!-- 24 · PWN B -->
+<section class="slide" data-title="Binary exploitation: approach & tools" data-section="Category 07 · Binary Exploitation" style="--accent:var(--c-pwn)">
+  <div class="row between center rise"><div><div class="kicker" style="margin-bottom:6px">07 · Binary Exploitation</div><h2 class="title t-md">How to approach it</h2></div><a class="pill small doc-link" data-doc href="docs/categories/07-BINARY-EXPLOITATION.md" target="_blank" rel="noopener" title="Open the in-depth Binary Exploitation guide"><svg class="icon"><use href="#i-book"/></svg>Full guide</a></div>
+  <div class="grid mt" style="grid-template-columns:1fr 1fr 1fr;gap:30px;flex:1">
+    <div class="rise col" style="--i:1;gap:14px">
+      <h4>Why C and memory matter</h4>
+      <p class="small">The C language gives programmers direct control of memory, with <strong>no automatic safety checks</strong>. Copying too much data is an easy mistake to make.</p>
+      <p class="small">Learning basic C and how memory is laid out is what makes this category "click".</p>
+      <div class="chal mt-s">
+        <header><span>Overflow 101</span><span class="pts">Pwn · 300 pts</span></header>
+        <div class="body small">"Only VIPs can see the flag."<div><span class="file">nc vip.ctf.example 1337</span></div><div class="small muted mt-s"><span class="term">nc</span> (netcat) connects you to the program running on the CTF's server.</div></div>
+      </div>
+      <p class="illus-note">Illustrative challenge, written for this workshop</p>
+    </div>
+    <div class="rise" style="--i:2">
+      <h4>A beginner's game plan</h4>
+      <ol class="steps mt-s">
+        <li>Run the program: what does it ask for?</li>
+        <li>Check which defences it has with <strong>checksec</strong>.</li>
+        <li>Read the source if given, or decompile it in Ghidra.</li>
+        <li>Find where input is copied without a size check.</li>
+        <li>Watch memory step by step in a debugger.</li>
+      </ol>
+      <div class="jargon mt"><svg class="icon"><use href="#i-shield"/></svg><span><b>checksec</b> lists defences such as <b>stack canaries</b> (tripwire values that detect overflows), <b>NX</b> (memory that can't run code) and <b>PIE</b> (randomised addresses).</span></div>
+    </div>
+    <div class="rise col" style="--i:3;gap:12px">
+      <h4>Tools: why and when</h4>
+      <div class="tools">
+        <div class="tool"><a href="https://www.sourceware.org/gdb/" target="_blank" rel="noopener">GDB</a><span><span class="badge install">install</span></span><span class="why"><b>The debugger:</b> pause a program and inspect memory at any moment.</span></div>
+        <div class="tool"><a href="https://github.com/pwndbg/pwndbg" target="_blank" rel="noopener">pwndbg</a><span><span class="badge install">GDB add-on</span></span><span class="why">Makes GDB show memory, registers and the stack clearly.</span></div>
+        <div class="tool"><a href="https://ghidra-sre.org/" target="_blank" rel="noopener">Ghidra</a><span><span class="badge install">install</span></span><span class="why">Understand the program before you attack it.</span></div>
+        <div class="tool"><a href="https://github.com/slimm609/checksec" target="_blank" rel="noopener">checksec</a><span><span class="badge install">install</span></span><span class="why">One command to see a program's defences. Also included in <a href="https://docs.pwntools.com/en/stable/" target="_blank" rel="noopener">pwntools</a>.</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="card fill compact rise row center" style="--i:4;gap:16px"><svg class="icon" style="font-size:30px"><use href="#i-star"/></svg><p style="font-size:19px;font-weight:600">Advanced, but beginner-friendly pwn exists: <a href="https://pwn.college/" target="_blank" rel="noopener">pwn.college</a> (free, by Arizona State University) starts from zero, and the <a href="https://learn.cylabacademy.org/library" target="_blank" rel="noopener">CyLab library</a> has easy Binary Exploitation challenges.</p></div>
+  <aside class="notes">
+    <p><b>~1.5 min.</b> Be honest: this is usually the last category people learn, but the payoff is a deep understanding of how computers really work.</p>
+    <p>Don't go deeper than the concepts here. Point interested students to pwn.college, which teaches the Linux, C and assembly background along the way.</p>
+  </aside>
+</section>
+
+<!-- 25 · MISC A -->
+<section class="slide" data-title="Miscellaneous: what it is" data-section="Category 08 · Misc" style="--accent:var(--c-misc)">
+  <div class="cat-head rise">
+    <span class="cat-num">08</span>
+    <div><div class="kicker" style="margin-bottom:6px">Category · Difficulty varies</div><h2 class="title t-lg">Miscellaneous</h2></div>
+    <div class="level" style="margin-left:auto">Difficulty <i class="on"></i><i class="on"></i><i></i></div>
+  </div>
+  <p class="lead mt-s rise" style="--i:1">Everything that doesn't fit anywhere else. This category rewards <span class="hl">curiosity and creative thinking</span>.</p>
+  <div class="grid g3 mt" style="gap:18px">
+    <div class="card compact rise row" style="--i:2;gap:16px"><div class="icon-box sm"><svg class="icon"><use href="#i-bulb"/></svg></div><div><h3 style="font-size:21px">Logic puzzles</h3><p class="small muted">Riddles where the trick is noticing the pattern.</p></div></div>
+    <div class="card compact rise row" style="--i:3;gap:16px"><div class="icon-box sm"><svg class="icon"><use href="#i-code"/></svg></div><div><h3 style="font-size:21px">Programming puzzles</h3><p class="small muted">"Answer 500 maths questions in 30 seconds." Only a script can do that.</p></div></div>
+    <div class="card compact rise row" style="--i:4;gap:16px"><div class="icon-box sm"><svg class="icon"><use href="#i-grid"/></svg></div><div><h3 style="font-size:21px">Weird formats</h3><p class="small muted">Broken QR codes, Morse code, Braille, obscure file types.</p></div></div>
+    <div class="card compact rise row" style="--i:5;gap:16px"><div class="icon-box sm"><svg class="icon"><use href="#i-hash"/></svg></div><div><h3 style="font-size:21px">Maths problems</h3><p class="small muted">Number puzzles and sequences.</p></div></div>
+    <div class="card compact rise row" style="--i:6;gap:16px"><div class="icon-box sm"><svg class="icon"><use href="#i-wave"/></svg></div><div><h3 style="font-size:21px">Audio challenges</h3><p class="small muted">A picture hidden in a <strong>spectrogram</strong>: a picture of a sound's frequencies over time.</p></div></div>
+    <div class="card compact rise row" style="--i:7;gap:16px"><div class="icon-box sm"><svg class="icon"><use href="#i-terminal"/></svg></div><div><h3 style="font-size:21px">General skills</h3><p class="small muted">Linux command-line tasks: find the file, read the permissions…</p></div></div>
+  </div>
+  <div class="row mt" style="gap:28px;flex:1;align-items:flex-start">
+    <div class="rise" style="--i:8;width:560px">
+      <div class="chal">
+        <header><span>Beep Boop</span><span class="pts">Misc · 100 pts</span></header>
+        <div class="body">"We recorded this strange sound from the lab radio."<div><span class="file"><svg class="icon"><use href="#i-wave"/></svg>signal.wav</span></div></div>
+      </div>
+      <p class="illus-note">Illustrative challenge, written for this workshop</p>
+    </div>
+    <div class="grow rise" style="--i:9">
+      <h4>Clues to look for</h4>
+      <div class="chips mt-s"><span class="chip">Short and long beeps → Morse?</span><span class="chip">Noise → look at the spectrogram</span><span class="chip">Lists of numbers → letter codes?</span><span class="chip">"Too many questions" → automate</span></div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>~1.5 min.</b> Misc is where creativity matters most. A good habit: say out loud what you see ("short and long beeps") and search for exactly that.</p>
+  </aside>
+</section>
+
+<!-- 26 · MISC B -->
+<section class="slide" data-title="Miscellaneous: approach & tools" data-section="Category 08 · Misc" style="--accent:var(--c-misc)">
+  <div class="row between center rise"><div><div class="kicker" style="margin-bottom:6px">08 · Miscellaneous</div><h2 class="title t-md">How to approach it</h2></div><div class="row center" style="gap:12px"><span class="pill ghost small">Mini quiz</span><a class="pill small doc-link" data-doc href="docs/categories/08-MISCELLANEOUS.md" target="_blank" rel="noopener" title="Open the in-depth Miscellaneous guide"><svg class="icon"><use href="#i-book"/></svg>Full guide</a></div></div>
+  <div class="grid mt" style="grid-template-columns:1fr 1.15fr 1fr;gap:32px;flex:1">
+    <div class="rise" style="--i:1">
+      <h4>A beginner's game plan</h4>
+      <ol class="steps mt-s">
+        <li>Don't panic at the weirdness. Describe what you see.</li>
+        <li>Search for the strange thing, e.g. "dots and dashes code".</li>
+        <li>Look at it another way: zoom, rotate, reverse, spectrogram.</li>
+        <li>Repetitive? Write a tiny script.</li>
+      </ol>
+    </div>
+    <div class="rise col" style="--i:2;gap:14px">
+      <h4>Tiny examples: what do these say?</h4>
+      <div class="card compact">
+        <p class="small muted">Beeps written down as dots and dashes:</p>
+        <p style="font:600 32px/1.3 var(--f-mono);letter-spacing:.06em;margin-top:6px">..-. .-.. .- --.</p>
+        <button class="btn mt-s" type="button" data-reveal="#morse-ans" data-label-shown="Hide"><svg class="icon"><use href="#i-eye"/></svg><span class="lbl">Reveal</span></button>
+        <p id="morse-ans" class="reveal small mt-s"><strong class="accent">FLAG</strong> in Morse code (F <span class="mono">..-.</span> · L <span class="mono">.-..</span> · A <span class="mono">.-</span> · G <span class="mono">--.</span>). Decode with <a href="https://www.dcode.fr/morse-code" target="_blank" rel="noopener">dCode's Morse tool</a>.</p>
+      </div>
+      <div class="card compact">
+        <p class="small muted">A list of numbers: <span class="term">70 76 65 71</span></p>
+        <button class="btn mt-s" type="button" data-reveal="#ascii-ans" data-label-shown="Hide"><svg class="icon"><use href="#i-eye"/></svg><span class="lbl">Reveal</span></button>
+        <div id="ascii-ans" class="reveal mt-s"><p class="small">Every character has a number in <strong>ASCII</strong> (A = 65). One line of Python decodes it:</p>
+          <div class="code mt-s" style="font-size:15px;padding:8px 12px">print(''.join(chr(n) <span class="k">for</span> n <span class="k">in</span> [70, 76, 65, 71]))
+<span class="s">FLAG</span></div></div>
+      </div>
+    </div>
+    <div class="rise col" style="--i:3;gap:12px">
+      <h4>Tools: why and when</h4>
+      <div class="tools">
+        <div class="tool"><a href="https://www.python.org/" target="_blank" rel="noopener">Python</a><span><span class="badge install">install</span></span><span class="why"><b>Automate</b> anything repetitive.</span></div>
+        <div class="tool"><a href="https://gchq.github.io/CyberChef/" target="_blank" rel="noopener">CyberChef</a><span><span class="badge web-tool">browser</span></span><span class="why">Converts between dozens of formats.</span></div>
+        <div class="tool"><a href="https://www.dcode.fr/" target="_blank" rel="noopener">dCode</a><span><span class="badge web-tool">browser</span></span><span class="why">Morse, Braille, and other odd codes.</span></div>
+        <div class="tool"><a href="https://www.audacityteam.org/" target="_blank" rel="noopener">Audacity</a><span><span class="badge install">install</span></span><span class="why"><b>Audio file?</b> Switch to <em>spectrogram view</em>.</span></div>
+        <div class="tool"><span class="name accent">Browser DevTools</span><span><span class="badge builtin">built in</span></span><span class="why">The JavaScript console doubles as a calculator.</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="practice rise" style="--i:4"><span class="lbl">Practise</span>
+    <a class="link-arrow" href="https://overthewire.org/wargames/bandit/" target="_blank" rel="noopener">OverTheWire: Bandit <svg class="icon"><use href="#i-ext"/></svg></a>
+    <a class="link-arrow" href="https://learn.cylabacademy.org/library" target="_blank" rel="noopener">CyLab library (General Skills) <svg class="icon"><use href="#i-ext"/></svg></a>
+    <a class="link-arrow" href="https://adventofcode.com/" target="_blank" rel="noopener">Advent of Code (programming puzzles every December) <svg class="icon"><use href="#i-ext"/></svg></a>
+  </div>
+  <aside class="notes">
+    <p><b>~1.5 min.</b> Ask the room to guess each one before clicking Reveal. Somebody usually recognises Morse.</p>
+    <p>ASCII is the standard table that maps characters to numbers (A = 65, B = 66 … a = 97). It's everywhere in CTFs.</p>
+  </aside>
+</section>
+
+<!-- =====================================================================
+     PART 4 — TOOLKIT & METHOD
+     ===================================================================== -->
+
+<!-- 27 · TOOLKIT: BROWSER -->
+<section class="slide" data-title="Toolkit: browser tools" data-section="Your toolkit">
+  <div class="kicker rise">Part 4 · Your beginner toolkit</div>
+  <div class="row between" style="align-items:flex-end">
+    <h2 class="title t-lg rise" style="--i:1">Start in your browser</h2>
+    <span class="pill rise" style="--i:2">No installation needed</span>
+  </div>
+  <div class="grid g4 mt" style="gap:16px;flex:1">
+    <div class="card compact rise col" style="--i:2;gap:8px"><div class="row between center"><h3 style="font-size:22px">CyberChef</h3><svg class="icon accent" style="font-size:26px"><use href="#i-toolbox"/></svg></div><p class="small muted">Decode, convert and analyse data by chaining operations.</p><div class="chips mt-auto"><span class="chip" style="font-size:14px">Crypto</span><span class="chip" style="font-size:14px">Forensics</span><span class="chip" style="font-size:14px">Misc</span></div><a class="link-arrow small" href="https://gchq.github.io/CyberChef/" target="_blank" rel="noopener">gchq.github.io/CyberChef <svg class="icon"><use href="#i-ext"/></svg></a></div>
+    <div class="card compact rise col" style="--i:3;gap:8px"><div class="row between center"><h3 style="font-size:22px">dCode</h3><svg class="icon accent" style="font-size:26px"><use href="#i-key"/></svg></div><p class="small muted">Hundreds of classic cipher solvers, plus a cipher identifier.</p><div class="chips mt-auto"><span class="chip" style="font-size:14px">Crypto</span><span class="chip" style="font-size:14px">Misc</span></div><a class="link-arrow small" href="https://www.dcode.fr/" target="_blank" rel="noopener">dcode.fr <svg class="icon"><use href="#i-ext"/></svg></a></div>
+    <div class="card compact rise col" style="--i:4;gap:8px"><div class="row between center"><h3 style="font-size:22px">Aperi'Solve</h3><svg class="icon accent" style="font-size:26px"><use href="#i-layers"/></svg></div><p class="small muted">Upload an image; it runs many stego tools and shows every layer.</p><div class="chips mt-auto"><span class="chip" style="font-size:14px">Stego</span><span class="chip" style="font-size:14px">Forensics</span></div><a class="link-arrow small" href="https://www.aperisolve.com/" target="_blank" rel="noopener">aperisolve.com <svg class="icon"><use href="#i-ext"/></svg></a></div>
+    <div class="card compact rise col" style="--i:5;gap:8px"><div class="row between center"><h3 style="font-size:22px">StegOnline</h3><svg class="icon accent" style="font-size:26px"><use href="#i-image"/></svg></div><p class="small muted">Explore bit planes and extract hidden LSB data yourself.</p><div class="chips mt-auto"><span class="chip" style="font-size:14px">Stego</span></div><a class="link-arrow small" href="https://georgeom.net/StegOnline/" target="_blank" rel="noopener">georgeom.net/StegOnline <svg class="icon"><use href="#i-ext"/></svg></a></div>
+    <div class="card compact rise col" style="--i:6;gap:8px"><div class="row between center"><h3 style="font-size:22px">Google Lens</h3><svg class="icon accent" style="font-size:26px"><use href="#i-camera"/></svg></div><p class="small muted">Search with a picture: similar images, places, text in photos.</p><div class="chips mt-auto"><span class="chip" style="font-size:14px">OSINT</span></div><a class="link-arrow small" href="https://lens.google/" target="_blank" rel="noopener">lens.google <svg class="icon"><use href="#i-ext"/></svg></a></div>
+    <div class="card compact rise col" style="--i:7;gap:8px"><div class="row between center"><h3 style="font-size:22px">DevTools</h3><svg class="icon accent" style="font-size:26px"><use href="#i-code"/></svg></div><p class="small muted">Built into every browser (F12): HTML, cookies, network requests.</p><div class="chips mt-auto"><span class="chip" style="font-size:14px">Web</span><span class="chip" style="font-size:14px">Misc</span></div><a class="link-arrow small" href="https://developer.chrome.com/docs/devtools/" target="_blank" rel="noopener">Chrome DevTools docs <svg class="icon"><use href="#i-ext"/></svg></a></div>
+    <div class="card compact rise col" style="--i:8;gap:8px"><div class="row between center"><h3 style="font-size:22px">HexEd.it</h3><svg class="icon accent" style="font-size:26px"><use href="#i-hash"/></svg></div><p class="small muted">An online hex editor: see and edit a file's raw bytes.</p><div class="chips mt-auto"><span class="chip" style="font-size:14px">Forensics</span><span class="chip" style="font-size:14px">Stego</span><span class="chip" style="font-size:14px">RE</span></div><a class="link-arrow small" href="https://hexed.it/" target="_blank" rel="noopener">hexed.it <svg class="icon"><use href="#i-ext"/></svg></a></div>
+    <div class="card compact rise col" style="--i:9;gap:8px"><div class="row between center"><h3 style="font-size:22px">explainshell</h3><svg class="icon accent" style="font-size:26px"><use href="#i-terminal"/></svg></div><p class="small muted">Paste any Linux command and get every part explained.</p><div class="chips mt-auto"><span class="chip" style="font-size:14px">General skills</span></div><a class="link-arrow small" href="https://explainshell.com/" target="_blank" rel="noopener">explainshell.com <svg class="icon"><use href="#i-ext"/></svg></a></div>
+  </div>
+  <aside class="notes">
+    <p><b>~1.5 min.</b> These eight cover a large share of beginner challenges. Tip for students: bookmark CyberChef today.</p>
+    <p>Privacy reminder: tools that upload files (like Aperi'Solve) are fine for CTF material; don't upload personal files. CyberChef and StegOnline process data in your browser.</p>
+  </aside>
+</section>
+
+<!-- 28 · TOOLKIT: SOFTWARE -->
+<section class="slide" data-title="Toolkit: software to install" data-section="Your toolkit">
+  <div class="kicker rise">Part 4 · Your beginner toolkit</div>
+  <h2 class="title t-lg rise" style="--i:1">Software worth discovering</h2>
+  <p class="small muted mt-s rise" style="--i:2">All free. Install them when a challenge needs them, not all at once.</p>
+  <div class="grid mt" style="grid-template-columns:1fr 1fr;gap:28px;flex:1">
+    <div class="rise col" style="--i:3;gap:12px">
+      <div class="row center" style="gap:12px"><span class="badge free" style="font-size:13px">Ready for day one</span><span class="small muted">beginner-friendly</span></div>
+      <div class="card compact row" style="gap:14px"><div class="icon-box sm"><svg class="icon"><use href="#i-code"/></svg></div><div class="grow"><div class="row between"><a href="https://code.visualstudio.com/" target="_blank" rel="noopener" style="font-weight:700">Visual Studio Code</a><span class="tiny muted">Win · Mac · Linux</span></div><p class="small muted">A free code editor for notes, scripts and reading files.</p></div></div>
+      <div class="card compact row" style="gap:14px"><div class="icon-box sm"><svg class="icon"><use href="#i-terminal"/></svg></div><div class="grow"><div class="row between"><a href="https://www.python.org/" target="_blank" rel="noopener" style="font-weight:700">Python</a><span class="tiny muted">all categories</span></div><p class="small muted">The CTF scripting language: decoding, automating, solving.</p></div></div>
+      <div class="card compact row" style="gap:14px"><div class="icon-box sm"><svg class="icon"><use href="#i-camera"/></svg></div><div class="grow"><div class="row between"><a href="https://exiftool.org/" target="_blank" rel="noopener" style="font-weight:700">ExifTool</a><span class="tiny muted">OSINT · Stego · Forensics</span></div><p class="small muted">Reads metadata from almost any file. One command, big payoff.</p></div></div>
+      <div class="card compact row" style="gap:14px"><div class="icon-box sm"><svg class="icon"><use href="#i-network"/></svg></div><div class="grow"><div class="row between"><a href="https://www.wireshark.org/" target="_blank" rel="noopener" style="font-weight:700">Wireshark</a><span class="tiny muted">Forensics · Network</span></div><p class="small muted">Opens network captures (.pcap) packet by packet.</p></div></div>
+    </div>
+    <div class="rise col" style="--i:4;gap:12px">
+      <div class="row center" style="gap:12px"><span class="badge adv" style="font-size:13px">Grow into it</span><span class="small muted">needs some background</span></div>
+      <div class="card compact row" style="gap:14px"><div class="icon-box sm"><svg class="icon"><use href="#i-globe"/></svg></div><div class="grow"><div class="row between"><a href="https://portswigger.net/burp/communitydownload" target="_blank" rel="noopener" style="font-weight:700">Burp Suite Community</a><span class="tiny muted">Web</span></div><p class="small muted">Intercept and modify web traffic. Learn HTTP basics first.</p></div></div>
+      <div class="card compact row" style="gap:14px"><div class="icon-box sm"><svg class="icon"><use href="#i-search"/></svg></div><div class="grow"><div class="row between"><a href="https://www.autopsy.com/" target="_blank" rel="noopener" style="font-weight:700">Autopsy</a><span class="tiny muted">Forensics</span></div><p class="small muted">Investigate whole disk images; recover deleted files.</p></div></div>
+      <div class="card compact row" style="gap:14px"><div class="icon-box sm"><svg class="icon"><use href="#i-box"/></svg></div><div class="grow"><div class="row between"><a href="https://ghidra-sre.org/" target="_blank" rel="noopener" style="font-weight:700">Ghidra</a><span class="tiny muted">Reverse · Pwn</span></div><p class="small muted">Decompile programs. Powerful, with a learning curve.</p></div></div>
+      <div class="jargon mt-auto"><svg class="icon"><use href="#i-bulb"/></svg><span><b>Optional:</b> many players use a <b>virtual machine</b> running <a href="https://www.kali.org/tools/" target="_blank" rel="noopener">Kali Linux</a>, which comes with hundreds of security tools preinstalled.</span></div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>~1.5 min.</b> Reassure: you don't need any of these to start. CyLab Security Academy even provides a browser-based terminal (webshell) for its challenges.</p>
+    <p>A virtual machine (VirtualBox, VMware, UTM on Mac) keeps CTF tools and files isolated from your personal system.</p>
+  </aside>
+</section>
+
+<!-- 29 · METHOD -->
+<section class="slide" data-title="How to approach any challenge" data-section="Your toolkit">
+  <div class="kicker rise">Part 4 · The method</div>
+  <h2 class="title rise" style="--i:1;font-size:46px">How do you actually approach a challenge?</h2>
+  <div class="grid mt method" style="grid-template-columns:1fr 0.85fr 1.2fr 0.7fr;gap:20px;flex:1;align-items:stretch">
+    <div class="col rise" style="--i:2;gap:12px">
+      <h4>Understand</h4>
+      <div class="card compact row center" style="gap:12px"><b class="cat-num" style="font-size:34px">1</b><p class="small">Read the description carefully. Titles are hints.</p></div>
+      <div class="card compact row center" style="gap:12px"><b class="cat-num" style="font-size:34px">2</b><p class="small">What were you <strong>given</strong>? A file? A URL?</p></div>
+      <div class="card compact row center" style="gap:12px"><b class="cat-num" style="font-size:34px">3</b><p class="small">What are you <strong>asked</strong> to find? Check the flag format.</p></div>
+    </div>
+    <div class="col rise" style="--i:3;gap:12px">
+      <h4>Investigate</h4>
+      <div class="card compact row center" style="gap:12px"><b class="cat-num" style="font-size:34px">4</b><p class="small">Inspect the file, website or data.</p></div>
+      <div class="card compact row center" style="gap:12px"><b class="cat-num" style="font-size:34px">5</b><p class="small">Look for <strong>unusual details</strong>.</p></div>
+    </div>
+    <div class="col rise" style="--i:4;gap:12px">
+      <h4>Experiment</h4>
+      <div class="card compact row center" style="gap:12px"><b class="cat-num" style="font-size:34px">6</b><p class="small">Form a <strong>hypothesis</strong>: "I think this is Base64."</p></div>
+      <div class="card compact row center" style="gap:12px"><b class="cat-num" style="font-size:34px">7</b><p class="small">Test <strong>one idea at a time</strong>.</p></div>
+      <div class="card compact row center" style="gap:12px"><b class="cat-num" style="font-size:34px">8</b><p class="small">Document what you discover, including what failed.</p></div>
+      <div class="row center small accent" style="gap:10px;justify-content:center"><svg class="icon" style="font-size:22px"><use href="#i-arrow-l"/></svg>Didn't work? Back to 6 with what you learned</div>
+    </div>
+    <div class="col rise" style="--i:5;gap:12px">
+      <h4>Finish</h4>
+      <div class="card fill col center" style="gap:12px;flex:1;justify-content:center;text-align:center">
+        <svg class="icon" style="font-size:56px"><use href="#i-flag"/></svg>
+        <b class="cat-num" style="font-size:34px;-webkit-text-stroke-color:var(--cyan-ink)">9</b>
+        <p style="font-weight:700;font-size:20px">Find and submit the flag</p>
+      </div>
+    </div>
+  </div>
+  <p class="rise mt" style="--i:6;font-size:22px;text-align:center">This loop works in <span class="hl">every category</span>, and in real security jobs too.</p>
+  <aside class="notes">
+    <p><b>~2 min.</b> This is the most transferable slide in the deck. The method is the scientific method: observe → hypothesise → test → record.</p>
+    <p>Step 8 matters: your notes become your first writeup, which is great for your CV.</p>
+  </aside>
+</section>
+
+<!-- 30 · MISTAKES -->
+<section class="slide" data-title="Beginner mistakes" data-section="Your toolkit">
+  <div class="kicker rise">Part 4 · The method</div>
+  <h2 class="title t-md rise" style="--i:1">Beginner mistakes (we all made them)</h2>
+  <div class="grid g3 mt mistakes" style="gap:20px;flex:1">
+    <div class="card rise col" style="--i:2;gap:10px"><p class="row" style="gap:10px;color:#ff9db0;font-weight:600"><svg class="icon" style="font-size:24px;margin-top:2px"><use href="#i-x"/></svg><span>Randomly trying tools without understanding the problem</span></p><p class="row small" style="gap:10px"><svg class="icon accent" style="font-size:22px;margin-top:2px"><use href="#i-check"/></svg><span>First ask: what is this, and what am I looking for?</span></p></div>
+    <div class="card rise col" style="--i:3;gap:10px"><p class="row" style="gap:10px;color:#ff9db0;font-weight:600"><svg class="icon" style="font-size:24px;margin-top:2px"><use href="#i-x"/></svg><span>Ignoring the challenge description</span></p><p class="row small" style="gap:10px"><svg class="icon accent" style="font-size:22px;margin-top:2px"><use href="#i-check"/></svg><span>Titles and puns are deliberate hints. "Julius" → Caesar.</span></p></div>
+    <div class="card rise col" style="--i:4;gap:10px"><p class="row" style="gap:10px;color:#ff9db0;font-weight:600"><svg class="icon" style="font-size:24px;margin-top:2px"><use href="#i-x"/></svg><span>Assuming everything is encrypted</span></p><p class="row small" style="gap:10px"><svg class="icon accent" style="font-size:22px;margin-top:2px"><use href="#i-check"/></svg><span>Most beginner "secrets" are just encoded: Base64, hex, ROT13.</span></p></div>
+    <div class="card rise col" style="--i:5;gap:10px"><p class="row" style="gap:10px;color:#ff9db0;font-weight:600"><svg class="icon" style="font-size:24px;margin-top:2px"><use href="#i-x"/></svg><span>Giving up after the first failed attempt</span></p><p class="row small" style="gap:10px"><svg class="icon accent" style="font-size:22px;margin-top:2px"><use href="#i-check"/></svg><span>Expect 5–10 wrong ideas. That's not failing, that's how solving works.</span></p></div>
+    <div class="card rise col" style="--i:6;gap:10px"><p class="row" style="gap:10px;color:#ff9db0;font-weight:600"><svg class="icon" style="font-size:24px;margin-top:2px"><use href="#i-x"/></svg><span>Forgetting file extensions and metadata</span></p><p class="row small" style="gap:10px"><svg class="icon accent" style="font-size:22px;margin-top:2px"><use href="#i-check"/></svg><span>Run <span class="term">file</span> and ExifTool first: 30 seconds, huge payoff.</span></p></div>
+    <div class="card rise col" style="--i:7;gap:10px"><p class="row" style="gap:10px;color:#ff9db0;font-weight:600"><svg class="icon" style="font-size:24px;margin-top:2px"><use href="#i-x"/></svg><span>Not taking notes</span></p><p class="row small" style="gap:10px"><svg class="icon accent" style="font-size:22px;margin-top:2px"><use href="#i-check"/></svg><span>Write down every attempt. Tomorrow-you will thank you.</span></p></div>
+  </div>
+  <aside class="notes">
+    <p><b>~1 min.</b> Share one of your own beginner mistakes here; it makes the room relax. Then move into the hands-on part.</p>
+  </aside>
+</section>
+
+<!-- =====================================================================
+     PART 5 — LET'S TRY SOMETHING
+     ===================================================================== -->
+
+<!-- 31 · CHALLENGE 1 -->
+<section class="slide" data-title="Challenge 1: Decode the message" data-section="Let's try something!">
+  <div class="kicker rise">Part 5 · Let's try something! · Challenge 1 of 2</div>
+  <h2 class="title t-lg rise" style="--i:1">Decode the message</h2>
+  <p class="lead mt-s rise" style="--i:2">You intercept this message. <strong>What do you think it is?</strong> Shout out your guesses!</p>
+  <div class="card rise mt" style="--i:3;text-align:center;padding:30px">
+    <div id="decode-src" style="font:600 40px/1.2 var(--f-mono);letter-spacing:.02em;color:#fff;word-break:break-all;text-shadow:0 0 18px rgba(54,226,234,.35)">RkxBR3tjdXJpb3NpdHlfaXNfeW91cl9zdXBlcnBvd2VyfQ==</div>
+  </div>
+  <div class="row mt rise" style="--i:4;gap:14px;flex-wrap:wrap">
+    <button class="btn" type="button" data-reveal="#hint1" data-label-shown="Hide the clues"><svg class="icon"><use href="#i-search"/></svg><span class="lbl">Step 1 · What are the clues?</span></button>
+    <button class="btn" type="button" id="decode-run"><svg class="icon"><use href="#i-play"/></svg><span class="lbl">Step 2 · Decode it live</span></button>
+    <a class="btn solid" href="https://gchq.github.io/CyberChef/#recipe=From_Base64('A-Za-z0-9%2B/%3D',true,false)&amp;input=Umt4QlIzdGpkWEpwYjNOcGRIbGZhWE5mZVc5MWNsOXpkWEJsY25CdmQyVnlmUT09" target="_blank" rel="noopener"><svg class="icon"><use href="#i-ext"/></svg>Try it yourself in CyberChef</a>
+  </div>
+  <div class="grid mt" style="grid-template-columns:1fr 1fr;gap:20px;flex:1">
+    <div id="hint1" class="reveal card compact">
+      <h4>The clues</h4>
+      <ul class="col small" style="gap:6px;margin:8px 0 0;padding-left:20px">
+        <li>Only letters, digits (and maybe + and /)</li>
+        <li>Ends with <span class="term">==</span>, which is Base64 "padding"</li>
+        <li>48 characters, a multiple of 4 like all Base64</li>
+        <li>No key needed, so it's <strong>encoding</strong>, not encryption</li>
+      </ul>
+    </div>
+    <div id="decode-box" class="reveal card fill compact col" style="gap:8px">
+      <h4>Decoded from Base64</h4>
+      <div id="decode-out" style="font:700 30px/1.25 var(--f-mono);word-break:break-all;min-height:40px"></div>
+      <p class="small" style="margin-top:auto"><strong>Pro tip:</strong> <span class="mono">RkxBR3</span> at the start always means "FLAG{" in Base64. Spot it instantly next time!</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>~3 min.</b> Give the room 30–60 seconds to guess. Common guesses: "encrypted", "a password", "a hash". Then reveal Step 1 and ask again. Then Step 2.</p>
+    <p>Answer: <code>FLAG{curiosity_is_your_superpower}</code>. The CyberChef button opens the same decode as a recipe, so students can try it on their phones/laptops.</p>
+    <p>Callback to slide 2: the friend's message <code>TWVldCBtZSBhdCB0aGUgbGlicmFyeQ==</code> decodes to "Meet me at the library".</p>
+  </aside>
+</section>
+
+<!-- 32 · CHALLENGE 2 -->
+<section class="slide" data-title="Challenge 2: Spot the clue" data-section="Let's try something!">
+  <div class="kicker rise">Part 5 · Let's try something! · Challenge 2 of 2</div>
+  <h2 class="title t-lg rise" style="--i:1">Spot the clue</h2>
+  <div class="row mt quiz" style="gap:36px;flex:1">
+    <div class="col rise" style="--i:2;width:470px;gap:14px">
+      <p class="small">A forensics challenge gives you this file. The description says: <em>"My holiday photo got corrupted. Can you recover the memories?"</em></p>
+      <div class="card col center" style="gap:14px;text-align:center;padding:26px">
+        <div style="width:150px;height:150px;border:2px dashed var(--line);border-radius:14px;display:grid;place-items:center;color:var(--muted)"><div><svg class="icon" style="font-size:52px"><use href="#i-image"/></svg><div class="tiny mt-s">Preview not available</div></div></div>
+        <div style="font:600 24px var(--f-mono)">holiday_photo.jpg</div>
+        <div class="col small muted" style="gap:4px;width:100%;text-align:left">
+          <div class="row between"><span>Type (from extension)</span><span style="color:#fff">JPEG image</span></div>
+          <div class="row between"><span>Size</span><span style="color:#fff">4.7 MB</span></div>
+          <div class="row between"><span>Opens in photo viewer?</span><span style="color:var(--bad)">No: "file format not supported"</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="grow col rise" style="--i:3;gap:16px">
+      <p style="font:600 28px/1.25 var(--f-title)">What would you inspect first?</p>
+      <div class="quiz-opts">
+        <button class="quiz-opt" type="button" data-choice="name"><span class="icon-box"><svg class="icon"><use href="#i-file"/></svg></span>The file name</button>
+        <button class="quiz-opt" type="button" data-choice="ext"><span class="icon-box"><svg class="icon"><use href="#i-hash"/></svg></span>The extension</button>
+        <button class="quiz-opt" type="button" data-choice="meta"><span class="icon-box"><svg class="icon"><use href="#i-layers"/></svg></span>The metadata</button>
+        <button class="quiz-opt" type="button" data-choice="bytes"><span class="icon-box"><svg class="icon"><use href="#i-search"/></svg></span>The file contents</button>
+      </div>
+      <div class="card compact" style="min-height:150px">
+        <p class="small muted feedback shown" data-for="none">Vote first (hands up for each option), then click to see what each one would tell you.</p>
+        <div class="feedback" data-for="name"><h4>File name: a hint, not proof</h4><p class="small">"holiday_photo" is what the creator <em>wants</em> you to believe. Worth noting (holiday? memories?), but it proves nothing about what the file is.</p></div>
+        <div class="feedback" data-for="ext"><h4>Extension: just a label</h4><p class="small">".jpg" is part of the name. Rename <span class="term">cat.jpg</span> to <span class="term">cat.mp3</span> and not a single byte changes. A "JPEG" that no viewer can open is suspicious.</p></div>
+        <div class="feedback" data-for="meta"><h4>Metadata: good instinct!</h4><p class="small">ExifTool reports <span class="term">File Type: ZIP</span>, not JPEG, and there's no camera data at all. ExifTool checks the file's real signature, so this already tells you something is off.</p></div>
+        <div class="feedback" data-for="bytes"><h4>Contents: the smoking gun 🎯</h4><p class="small">The first bytes are <span class="term">50 4B 03 04</span> ("PK"), the signature of a <strong>ZIP archive</strong>, not a JPEG (<span class="term">FF D8 FF</span>). Rename it to <span class="term">.zip</span>, open it, and inside is <span class="term">flag.txt</span>.</p></div>
+      </div>
+      <div class="reveal card fill compact" data-after-pick>
+        <p class="small"><strong>Expert answer:</strong> there's no single right answer. Pros check all four in under a minute, but <strong>"what is this file really?"</strong> comes first, because every other clue depends on it. Quick triage: <span class="mono">file</span> → ExifTool → <span class="mono">strings</span> → hex editor.</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>~3 min.</b> Take a show of hands for each of the four options before clicking anything. Then click each option in turn and discuss.</p>
+    <p>Everything shown is accurate: ZIP files start with 50 4B 03 04 ("PK"), JPEGs with FF D8 FF, and ExifTool identifies the file type from its content rather than its extension.</p>
+    <p>Callback to slide 2 ("notes.pdf won't open") and slide 17 (file signatures).</p>
+  </aside>
+</section>
+
+<!-- =====================================================================
+     PART 6 — WHERE TO START
+     ===================================================================== -->
+
+<!-- 33 · LEARNING PATH -->
+<section class="slide" data-title="Your first CTF learning path" data-section="Where to start">
+  <div class="kicker rise">Part 6 · Where to start practising</div>
+  <h2 class="title t-lg rise" style="--i:1">Your first CTF learning path</h2>
+  <div class="grid g4 mt" style="gap:18px;flex:1;align-items:stretch">
+    <div class="card fill rise col" style="--i:2;gap:12px">
+      <h4>Level 1 · No experience</h4>
+      <div><a href="https://cylabacademy.org/" target="_blank" rel="noopener" style="font-size:21px">CyLab Security Academy</a><br><span class="tiny" style="font-weight:600">formerly picoCTF · Carnegie Mellon University</span></div>
+      <p class="small">Beginner challenges with hints, learning paths and a browser terminal. <strong>Best first stop.</strong></p>
+      <div><span class="badge" style="background:var(--cyan-ink);color:var(--cyan)">free</span> <span class="badge" style="background:var(--cyan-ink);color:var(--cyan)">account</span></div>
+      <hr style="border:0;border-top:1px solid rgba(2,20,23,.3);width:100%;margin:2px 0">
+      <a href="https://overthewire.org/wargames/bandit/" target="_blank" rel="noopener" style="font-size:21px">OverTheWire: Bandit</a>
+      <p class="small">Learn Linux commands as a level-by-level game.</p>
+      <div><span class="badge" style="background:var(--cyan-ink);color:var(--cyan)">free</span> <span class="badge" style="background:var(--cyan-ink);color:var(--cyan)">no account</span></div>
+    </div>
+    <div class="card rise col" style="--i:3;gap:10px;margin-top:30px">
+      <h4>Level 2 · Explore categories</h4>
+      <a href="https://tryhackme.com/" target="_blank" rel="noopener" style="font-weight:700;font-size:20px">TryHackMe</a>
+      <p class="small muted">Guided lessons in your browser; start with the <a href="https://tryhackme.com/path/outline/presecurity" target="_blank" rel="noopener">Pre Security</a> path.</p>
+      <div><span class="badge freemium">freemium</span> <span class="badge acct">account</span></div>
+      <a href="https://www.root-me.org/" target="_blank" rel="noopener" style="font-weight:700;font-size:20px">Root-Me</a>
+      <p class="small muted">Hundreds of challenges sorted by category.</p>
+      <div><span class="badge free">free</span> <span class="badge acct">account</span></div>
+      <a href="https://cryptohack.org/" target="_blank" rel="noopener" style="font-weight:700;font-size:20px">CryptoHack</a>
+      <p class="small muted">Crypto, taught through puzzles.</p>
+      <div><span class="badge free">free</span> <span class="badge acct">account</span></div>
+    </div>
+    <div class="card rise col" style="--i:4;gap:10px;margin-top:60px">
+      <h4>Level 3 · Web security</h4>
+      <a href="https://portswigger.net/web-security" target="_blank" rel="noopener" style="font-weight:700;font-size:20px">PortSwigger Web Security Academy</a>
+      <p class="small muted">Clear lessons plus hands-on labs, from the makers of Burp Suite.</p>
+      <div><span class="badge free">free</span> <span class="badge acct">account</span></div>
+      <a href="https://owasp.org/www-project-juice-shop/" target="_blank" rel="noopener" style="font-weight:700;font-size:20px">OWASP Juice Shop</a>
+      <p class="small muted">A deliberately insecure web shop with 100+ challenges. Run it locally or try the <a href="https://demo.owasp-juice.shop/" target="_blank" rel="noopener">online demo</a>.</p>
+      <div><span class="badge free">free · open source</span></div>
+    </div>
+    <div class="card rise col" style="--i:5;gap:10px;margin-top:90px">
+      <h4>Level 4 · Compete!</h4>
+      <a href="https://ctftime.org/" target="_blank" rel="noopener" style="font-weight:700;font-size:20px">CTFtime</a>
+      <p class="small muted">The calendar of CTFs worldwide, team rankings and writeups.</p>
+      <div><span class="badge free">free</span></div>
+      <p style="font-weight:700;font-size:20px">Your university club</p>
+      <p class="small muted">Join (or found!) a team and play together.</p>
+      <p style="font-weight:700;font-size:20px">Beginner-friendly events</p>
+      <p class="small muted">Look for student or beginner events on CTFtime.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>~2 min.</b> If students remember one thing: start at Level 1. picoCTF.org became <b>CyLab Security Academy</b> in May 2026, run by the same Carnegie Mellon team. Old picoCTF logins created before 8 May 2026 still work, and all challenges are free.</p>
+    <p>Bandit: connect with SSH to <code>bandit.labs.overthewire.org</code>, port 2220; the first username and password are both <code>bandit0</code>. Each level's password unlocks the next.</p>
+    <p>TryHackMe has a free tier; some rooms and features need a subscription. Juice Shop's own docs claim 100+ hacking challenges.</p>
+  </aside>
+</section>
+
+<!-- 34 · 7 DAYS -->
+<section class="slide" data-title="Your first 7 days" data-section="Where to start">
+  <div class="kicker rise">Part 6 · Where to start practising</div>
+  <div class="row between" style="align-items:flex-end">
+    <h2 class="title t-lg rise" style="--i:1">Your first 7 days in CTFs</h2>
+    <span class="pill ghost rise" style="--i:2">A suggestion, not a schedule</span>
+  </div>
+  <div class="rise days" style="--i:3;position:relative;margin:auto 0">
+    <div style="position:absolute;left:0;right:0;top:34px;height:2px;background:linear-gradient(90deg,var(--cyan),rgba(54,226,234,.2))"></div>
+    <div class="grid" style="grid-template-columns:repeat(7,1fr);gap:14px;position:relative">
+      <div class="col" style="gap:12px"><span class="pill" style="width:68px;height:68px;padding:0;justify-content:center;font:700 22px var(--f-title)">D1</span><h3 style="font-size:20px">Understand CTFs</h3><p class="small muted">Create a <a href="https://cylabacademy.org/" target="_blank" rel="noopener">CyLab Academy</a> account and browse the challenge library.</p></div>
+      <div class="col" style="gap:12px"><span class="pill ghost" style="width:68px;height:68px;padding:0;justify-content:center;font:700 22px var(--f-title);background:#000">D2</span><h3 style="font-size:20px">Linux basics</h3><p class="small muted">Play <a href="https://overthewire.org/wargames/bandit/" target="_blank" rel="noopener">Bandit</a> levels 0–5. Decode commands with explainshell.</p></div>
+      <div class="col" style="gap:12px"><span class="pill ghost" style="width:68px;height:68px;padding:0;justify-content:center;font:700 22px var(--f-title);background:#000">D3</span><h3 style="font-size:20px">OSINT or crypto</h3><p class="small muted">Solve one easy challenge with CyberChef or dCode.</p></div>
+      <div class="col" style="gap:12px"><span class="pill ghost" style="width:68px;height:68px;padding:0;justify-content:center;font:700 22px var(--f-title);background:#000">D4</span><h3 style="font-size:20px">Inspect files</h3><p class="small muted">Try <span class="mono">file</span>, <span class="mono">strings</span>, ExifTool and Aperi'Solve on a forensics task.</p></div>
+      <div class="col" style="gap:12px"><span class="pill ghost" style="width:68px;height:68px;padding:0;justify-content:center;font:700 22px var(--f-title);background:#000">D5</span><h3 style="font-size:20px">First web challenge</h3><p class="small muted">Open DevTools on a web challenge; try a <a href="https://portswigger.net/web-security" target="_blank" rel="noopener">PortSwigger</a> lab.</p></div>
+      <div class="col" style="gap:12px"><span class="pill ghost" style="width:68px;height:68px;padding:0;justify-content:center;font:700 22px var(--f-title);background:#000">D6</span><h3 style="font-size:20px">Explore</h3><p class="small muted">Pick the category that made you most curious today.</p></div>
+      <div class="col" style="gap:12px"><span class="pill" style="width:68px;height:68px;padding:0;justify-content:center;font:700 22px var(--f-title)">D7</span><h3 style="font-size:20px">Solve &amp; read</h3><p class="small muted">Solve 2–3 challenges, then read a writeup for one you couldn't solve.</p></div>
+    </div>
+  </div>
+  <div class="row mt-auto rise" style="--i:4;gap:18px">
+    <div class="jargon grow"><svg class="icon"><use href="#i-clock"/></svg><span><b>30–60 minutes a day</b> is plenty. Consistency beats marathon sessions.</span></div>
+    <div class="jargon grow"><svg class="icon"><use href="#i-users"/></svg><span><b>Find a buddy.</b> Solving with a friend is twice the fun and half the frustration.</span></div>
+  </div>
+  <aside class="notes">
+    <p><b>~1 min.</b> Encourage students to take a photo of this slide. Days can be swapped or repeated, and skipping a day is fine.</p>
+  </aside>
+</section>
+
+<!-- 35 · YOUR TURN -->
+<section class="slide no-strips" data-title="Your turn!" data-section="Your turn" style="background:radial-gradient(800px 600px at 80% 45%, rgba(54,226,234,.14), transparent 60%), #000;">
+  <div class="row" style="gap:56px;height:100%">
+    <div class="col grow" style="justify-content:center;gap:0">
+      <div class="kicker rise">Your turn</div>
+      <p class="rise" style="--i:1;font:500 52px/1.18 var(--f-title);text-transform:none">"You don't need to know everything to start. You just need to be <span class="accent" style="text-shadow:0 0 22px rgba(54,226,234,.7)">curious enough to investigate.</span>"</p>
+      <div class="rise" style="--i:2;margin-top:34px;font:600 30px var(--f-mono)"><span class="accent">$</span> submit <span style="color:#fff">FLAG{you_are_ready}</span><span class="caret"></span></div>
+      <div class="row rise" style="--i:3;gap:16px;margin-top:40px;flex-wrap:wrap">
+        <a class="btn solid" href="https://cylabacademy.org/" target="_blank" rel="noopener"><svg class="icon"><use href="#i-flag"/></svg>CyLab Security Academy</a>
+        <a class="btn" href="https://overthewire.org/wargames/bandit/" target="_blank" rel="noopener"><svg class="icon"><use href="#i-terminal"/></svg>OverTheWire Bandit</a>
+        <a class="btn" href="https://gchq.github.io/CyberChef/" target="_blank" rel="noopener"><svg class="icon"><use href="#i-toolbox"/></svg>CyberChef</a>
+      </div>
+      <div class="card rise row center" style="--i:4;margin-top:40px;gap:20px;max-width:780px">
+        <div class="icon-box"><svg class="icon"><use href="#i-help"/></svg></div>
+        <div><p style="font:600 30px var(--f-title)">Questions?</p>
+          <p class="small muted">Find us: <span contenteditable="true" spellcheck="false" data-store="contact" aria-label="Contact details (editable)">club email · Discord · Instagram</span></p></div>
+      </div>
+    </div>
+    <div class="col center rise" style="--i:3;justify-content:center;width:420px;gap:18px">
+      <div style="background:#fff;border-radius:22px;padding:20px;box-shadow:0 0 60px rgba(54,226,234,.45);border:10px solid var(--cyan)">
+        <img src="assets/qr-cylab.svg" alt="QR code linking to cylabacademy.org" width="300" height="300" style="display:block">
+      </div>
+      <p style="font:600 22px var(--f-title);text-align:center">Scan &amp; solve your first<br>challenge <span class="accent">tonight</span></p>
+      <a href="https://cylabacademy.org/" target="_blank" rel="noopener" class="mono small">cylabacademy.org</a>
+      <div class="col center" style="gap:10px;margin-top:10px"><a class="link-arrow doc-link small" data-doc href="README.md" target="_blank" rel="noopener"><svg class="icon"><use href="#i-book"/></svg>Workshop resources &amp; guides</a><a class="link-arrow doc-link small" data-doc href="docs/learning-path/7-DAY-ROADMAP.md" target="_blank" rel="noopener"><svg class="icon"><use href="#i-map"/></svg>7-day &amp; 30-day roadmaps</a></div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>~1 min + Q&amp;A.</b> Call to action: "Before you go to bed tonight, solve ONE challenge." Leave this slide up during questions so people can scan the QR code.</p>
+    <p>Click the contact line to type your club's details. The two links under the QR code open the repository's README and the learning roadmaps. The QR code points to https://cylabacademy.org/ (regenerate <code>assets/qr-cylab.svg</code> if you prefer another link; see README).</p>
+  </aside>
+</section>
+
+<!-- 36 · SOURCES -->
+<section class="slide" data-title="Sources & further reading" data-section="Appendix">
+  <div class="kicker rise">Appendix</div>
+  <h2 class="title t-md rise" style="--i:1">Sources &amp; further reading</h2>
+  <div class="grid g3 mt rise" style="--i:2;gap:28px;font-size:17px;line-height:1.5">
+    <div>
+      <h4>CTF guides</h4>
+      <ul style="margin:6px 0 0;padding-left:18px">
+        <li><a href="https://ctf101.org/" target="_blank" rel="noopener">CTF101: CTF Handbook</a> (OSIRIS Lab, NYU)</li>
+        <li><a href="https://primer.picoctf.org/" target="_blank" rel="noopener">The CTF Primer</a> (picoCTF / CMU)</li>
+        <li><a href="https://cylabacademy.org/" target="_blank" rel="noopener">CyLab Security Academy</a> (formerly picoCTF)</li>
+        <li><a href="https://ctftime.org/" target="_blank" rel="noopener">CTFtime</a>: events and writeups</li>
+        <li><a href="https://www.kali.org/tools/" target="_blank" rel="noopener">Kali Linux tool documentation</a></li>
+      </ul>
+      <h4 class="mt">Web</h4>
+      <ul style="margin:6px 0 0;padding-left:18px">
+        <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview" target="_blank" rel="noopener">MDN: An overview of HTTP</a></li>
+        <li><a href="https://portswigger.net/web-security/sql-injection" target="_blank" rel="noopener">PortSwigger: SQL injection</a></li>
+        <li><a href="https://portswigger.net/web-security/cross-site-scripting" target="_blank" rel="noopener">PortSwigger: Cross-site scripting</a></li>
+        <li><a href="https://owasp.org/www-community/attacks/xss/" target="_blank" rel="noopener">OWASP: XSS</a> · <a href="https://owasp.org/www-community/attacks/SQL_Injection" target="_blank" rel="noopener">OWASP: SQL Injection</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Files, forensics &amp; stego</h4>
+      <ul style="margin:6px 0 0;padding-left:18px">
+        <li><a href="https://en.wikipedia.org/wiki/List_of_file_signatures" target="_blank" rel="noopener">List of file signatures</a></li>
+        <li><a href="https://exiftool.org/" target="_blank" rel="noopener">ExifTool documentation</a></li>
+        <li><a href="https://www.aperisolve.com/" target="_blank" rel="noopener">Aperi'Solve</a> (tools it runs are listed on its homepage)</li>
+        <li><a href="https://www.sleuthkit.org/" target="_blank" rel="noopener">The Sleuth Kit</a> · <a href="https://www.autopsy.com/" target="_blank" rel="noopener">Autopsy</a></li>
+        <li><a href="https://volatility3.readthedocs.io/" target="_blank" rel="noopener">Volatility 3 documentation</a></li>
+        <li><a href="https://www.wireshark.org/docs/" target="_blank" rel="noopener">Wireshark documentation</a></li>
+      </ul>
+      <h4 class="mt">OSINT</h4>
+      <ul style="margin:6px 0 0;padding-left:18px">
+        <li><a href="https://support.google.com/websearch/answer/2466433" target="_blank" rel="noopener">Google: Refine web searches</a></li>
+        <li><a href="https://bellingcat.gitbook.io/toolkit" target="_blank" rel="noopener">Bellingcat Online Investigation Toolkit</a></li>
+        <li><a href="https://lookup.icann.org/" target="_blank" rel="noopener">ICANN Registration Data Lookup</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Reverse engineering &amp; pwn</h4>
+      <ul style="margin:6px 0 0;padding-left:18px">
+        <li><a href="https://ghidra-sre.org/" target="_blank" rel="noopener">Ghidra</a> (NSA, open source)</li>
+        <li><a href="https://ctf101.org/binary-exploitation/buffer-overflow/" target="_blank" rel="noopener">CTF101: Buffer overflows</a></li>
+        <li><a href="https://pwn.college/" target="_blank" rel="noopener">pwn.college</a> (Arizona State University)</li>
+        <li><a href="https://docs.pwntools.com/en/stable/" target="_blank" rel="noopener">pwntools documentation</a></li>
+      </ul>
+      <h4 class="mt">Crypto &amp; Linux</h4>
+      <ul style="margin:6px 0 0;padding-left:18px">
+        <li><a href="https://cryptohack.org/" target="_blank" rel="noopener">CryptoHack</a> · <a href="https://www.dcode.fr/" target="_blank" rel="noopener">dCode</a></li>
+        <li><a href="https://gchq.github.io/CyberChef/" target="_blank" rel="noopener">CyberChef</a> (GCHQ, open source)</li>
+        <li><a href="https://explainshell.com/" target="_blank" rel="noopener">explainshell</a></li>
+        <li><a href="https://overthewire.org/wargames/" target="_blank" rel="noopener">OverTheWire wargames</a></li>
+      </ul>
+      <h4 class="mt">Law</h4>
+      <ul style="margin:6px 0 0;padding-left:18px">
+        <li><a href="https://www.legislation.gov.uk/ukpga/1990/18/contents" target="_blank" rel="noopener">UK Computer Misuse Act 1990</a></li>
+        <li><a href="https://www.justice.gov/jm/jm-9-48000-computer-fraud" target="_blank" rel="noopener">US DOJ: Computer Fraud and Abuse Act</a></li>
+      </ul>
+    </div>
+  </div>
+  <p class="tiny muted mt-auto">All challenges shown in this deck are illustrative examples written for this workshop. Links checked November 2026. Visual style inspired by the Canva template "Electric Blue and Black Modern Computer Security Presentation". All illustrations are original SVG.</p>
+  <aside class="notes"><p>Reference slide: not presented, but useful for anyone reviewing the deck afterwards.</p></aside>
+</section>
+
+</main>
+
+<!-- ============ UI CHROME ============ -->
+<div id="brand" aria-hidden="true"><svg class="icon"><use href="#i-shield"/></svg><span>CTF 101</span><span style="opacity:.5">·</span><span id="brand-section"></span></div>
+
+<nav id="controls" aria-label="Presentation controls">
+  <button id="ov" type="button" title="Slide overview (O)" aria-label="Slide overview" aria-pressed="false"><svg class="icon"><use href="#i-grid"/></svg></button>
+  <button id="prev" type="button" title="Previous (←)" aria-label="Previous slide"><svg class="icon"><use href="#i-arrow-l"/></svg></button>
+  <span id="counter" aria-live="polite"></span>
+  <button id="next" type="button" title="Next (→ / Space)" aria-label="Next slide"><svg class="icon"><use href="#i-arrow-r"/></svg></button>
+  <button id="nt" type="button" title="Speaker notes (N)" aria-label="Speaker notes" aria-pressed="false"><svg class="icon"><use href="#i-notes"/></svg></button>
+  <button id="fs" type="button" title="Fullscreen (F)" aria-label="Fullscreen" aria-pressed="false"><svg class="icon"><use href="#i-max"/></svg></button>
+  <button id="hp" type="button" title="Keyboard shortcuts (?)" aria-label="Keyboard shortcuts"><svg class="icon"><use href="#i-help"/></svg></button>
+</nav>
+
+<div id="overview" role="dialog" aria-modal="true" aria-label="Slide overview">
+  <header><span>All slides · click one or use arrows + Enter</span><button class="btn" id="ov-close" type="button"><svg class="icon"><use href="#i-x"/></svg>Close (Esc)</button></header>
+  <div class="grid-wrap"><div class="thumbs" id="thumbs"></div></div>
+</div>
+
+<div id="notes" role="region" aria-label="Speaker notes"></div>
+
+<div id="help" role="dialog" aria-modal="true" aria-label="Keyboard shortcuts">
+  <div class="box">
+    <h5>Keyboard shortcuts</h5>
+    <table>
+      <tr><td><kbd>→</kbd> <kbd>Space</kbd> <kbd>PgDn</kbd></td><td>Next slide</td></tr>
+      <tr><td><kbd>←</kbd> <kbd>Shift+Space</kbd> <kbd>PgUp</kbd></td><td>Previous slide</td></tr>
+      <tr><td><kbd>Home</kbd> / <kbd>End</kbd></td><td>First / last slide</td></tr>
+      <tr><td><kbd>O</kbd> or <kbd>G</kbd></td><td>Slide overview (Esc to close)</td></tr>
+      <tr><td><kbd>N</kbd></td><td>Speaker notes</td></tr>
+      <tr><td><kbd>F</kbd></td><td>Fullscreen</td></tr>
+      <tr><td><kbd>?</kbd> / <kbd>H</kbd></td><td>This help</td></tr>
+    </table>
+  </div>
+</div>
+
+<script src="js/deck.js"></script>
+</body>
+</html>
