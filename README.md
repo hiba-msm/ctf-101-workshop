@@ -6,10 +6,19 @@ A complete, beginner-friendly **Capture The Flag (CTF) workshop** for university
 
 > **New here?** Start with [Getting started](docs/GETTING_STARTED.md): your first flag in 30 minutes, no installation needed.
 
+## Live presentation
+
+**▶ <https://ctf-101-workshop.vercel.app>**
+
+Scan to open the presentation on your phone or laptop. No account needed.
+
+<img src="assets/qr-workshop.svg" alt="QR code linking to https://ctf-101-workshop.vercel.app" width="220">
+
 ---
 
 ## Table of contents
 
+- [Live presentation](#live-presentation)
 - [What you'll learn](#what-youll-learn)
 - [The presentation](#the-presentation)
   - [Viewing it](#viewing-it)
@@ -45,7 +54,7 @@ A complete, beginner-friendly **Capture The Flag (CTF) workshop** for university
 The presentation is a single static web page ([index.html](index.html)) with no build step or backend: plain HTML, CSS and vanilla JavaScript.
 
 - **From a copy of this repository:** open `index.html` in a browser (see below).
-- **Hosted link for participants:** the deck isn't hosted publicly yet. See [Participant access](#participant-access-during-the-workshop) for the options.
+- **Hosted link for participants:** <https://ctf-101-workshop.vercel.app> (hosted on Vercel; QR code in [`assets/qr-workshop.svg`](assets/qr-workshop.svg)).
 
 Slides link to the matching guide in `docs/`. When the deck is opened from your own computer, the links open the local Markdown files. When it's served from a website, they open the rendered guides on GitHub (configured in `<body data-docs-base="…">` in `index.html`).
 
@@ -131,7 +140,8 @@ ctf-101-workshop/
 ├── index.html                 the 36-slide presentation (+ speaker notes)
 ├── css/style.css              design tokens, layout, components
 ├── js/deck.js                 navigation, overview, notes, interactive widgets
-├── assets/qr-cylab.svg        QR code → https://cylabacademy.org/
+├── assets/qr-cylab.svg        QR code → https://cylabacademy.org/ (slide 35)
+├── assets/qr-workshop.svg     QR code → https://ctf-101-workshop.vercel.app
 ├── docs/
 │   ├── GETTING_STARTED.md     start here after the workshop
 │   ├── CTF_FUNDAMENTALS.md    formats, scoring, teams, rules, ethics
