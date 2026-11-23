@@ -953,30 +953,29 @@ essay.pdf: <span class="m">Zip archive data</span>, at least v2.0
 <section class="slide web-exploit-slide" data-title="Web exploitation: approach & tools" data-section="Category 05 · Web" style="--accent:var(--c-web)">
   <div class="row between center rise"><div><div class="kicker" style="margin-bottom:6px">05 · Web Exploitation</div><h2 class="title t-md">Peek behind the page</h2></div><div class="row center" style="gap:12px"><span class="pill ghost small">Interactive</span><a class="pill small doc-link" data-doc href="docs/categories/05-WEB-EXPLOITATION.md" target="_blank" rel="noopener" title="Open the in-depth Web Exploitation guide"><svg class="icon"><use href="#i-book"/></svg>Full guide</a></div></div>
   <div class="grid mt" style="grid-template-columns:1.1fr 1fr;gap:34px;flex:1">
-    <div class="col rise" style="--i:1;gap:14px">
+    <div class="col rise" style="--i:1;gap:10px">
       <!-- mock browser -->
       <div style="border:1.5px solid color-mix(in srgb,var(--accent) 55%,transparent);border-radius:14px;overflow:hidden;background:#02090b">
-        <div class="row center" style="gap:8px;padding:10px 14px;background:rgba(182,242,90,.08);font-size:15px">
+        <div class="row center" style="gap:8px;padding:7px 14px;background:rgba(182,242,90,.08);font-size:15px">
           <i style="width:11px;height:11px;border-radius:50%;background:var(--accent)"></i><i style="width:11px;height:11px;border-radius:50%;background:var(--accent);opacity:.5"></i><i style="width:11px;height:11px;border-radius:50%;background:var(--accent);opacity:.25"></i>
           <span class="mono grow" style="margin-left:12px;padding:4px 12px;border-radius:999px;background:#000;color:var(--muted)">portal.ctf.example/login</span>
+          <button class="btn devtools-btn" type="button" data-reveal="#devtools" data-label-shown="Close DevTools" style="flex:none"><svg class="icon"><use href="#i-code"/></svg><span class="lbl">Open DevTools (F12)</span></button>
         </div>
-        <div class="row" style="padding:20px 26px;gap:26px;align-items:center">
-          <div class="col" style="gap:10px;flex:1">
-            <b style="font:600 22px var(--f-title)">🎓 Student Portal</b>
-            <span style="border:1px solid #2a3b2a;border-radius:8px;padding:8px 12px;color:#5e7f84;font-size:16px">Username</span>
-            <span style="border:1px solid #2a3b2a;border-radius:8px;padding:8px 12px;color:#5e7f84;font-size:16px">Password</span>
-            <span style="background:var(--accent);color:#0b1400;border-radius:8px;padding:8px 12px;font-weight:700;text-align:center;font-size:16px">Log in</span>
+        <div class="col" style="padding:10px 26px 12px;gap:10px">
+          <b style="font:600 22px var(--f-title)">🎓 Student Portal</b>
+          <div class="row" style="gap:10px">
+            <span class="grow" style="border:1px solid #2a3b2a;border-radius:8px;padding:8px 12px;color:#5e7f84;font-size:16px">Username</span>
+            <span class="grow" style="border:1px solid #2a3b2a;border-radius:8px;padding:8px 12px;color:#5e7f84;font-size:16px">Password</span>
+            <span style="background:var(--accent);color:#0b1400;border-radius:8px;padding:8px 22px;font-weight:700;text-align:center;font-size:16px">Log in</span>
           </div>
-          <button class="btn" type="button" data-reveal="#devtools" data-label-shown="Close DevTools" style="flex:none"><svg class="icon"><use href="#i-code"/></svg><span class="lbl">Open DevTools (F12)</span></button>
         </div>
         <div id="devtools" class="reveal" style="border-top:1.5px solid color-mix(in srgb,var(--accent) 45%,transparent)">
-          <div class="code" style="border:0;border-radius:0;font-size:15px;padding:12px 18px;line-height:1.5"><span class="c">&lt;!-- Elements --&gt;</span>
+          <div class="code" style="border:0;border-radius:0"><span class="c">&lt;!-- Elements --&gt;</span>
 <span class="p">&lt;form</span> action="/login" method="POST"<span class="p">&gt;</span>
   <span class="p">&lt;input</span> name="user"<span class="p">&gt;</span> <span class="p">&lt;input</span> name="pass" type="password"<span class="p">&gt;</span>
   <span class="m">&lt;!-- TODO: delete test account  test / test123 --&gt;</span>
 <span class="p">&lt;/form&gt;</span>
 <span class="c">Application › Cookies:</span>  role = <span class="m">student</span>   <span class="c">← what if it said admin?</span>
-
 <span class="c">Network:</span>
 POST /login  <span class="m">200 OK</span>
 <span class="c">Payload:</span> user=student&amp;pass=test123
@@ -985,22 +984,22 @@ POST /login  <span class="m">200 OK</span>
         </div>
       </div>
       <div class="grid g2" style="gap:14px">
-        <div class="card compact"><h4>SQL injection (concept)</h4><p class="small">If a site glues your input directly into a database query (written in <strong>SQL</strong>, the language of databases), crafted input can change what the query means. <span class="muted">Fix: parameterised queries.</span></p></div>
+        <div class="card compact"><h4>SQL injection (concept)</h4><p class="small">If a site glues your input into a database query (<strong>SQL</strong>, the language of databases), crafted input can change what it means. <span class="muted">Fix: parameterised queries.</span></p></div>
         <div class="card compact"><h4>XSS (concept)</h4><p class="small">Cross-Site Scripting: if a site shows your input without cleaning it, browsers may run it as <strong>code</strong>, in other visitors' browsers. <span class="muted">Fix: encode output.</span></p></div>
       </div>
     </div>
-    <div class="col rise" style="--i:2;gap:16px">
+    <div class="col rise" style="--i:2;gap:10px">
       <div>
         <h4>Tools: why and when</h4>
         <div class="tools mt-s">
-          <div class="tool"><a href="https://developer.chrome.com/docs/devtools/" target="_blank" rel="noopener">Browser DevTools</a><span><span class="badge builtin">built in</span></span><span class="why"><b>Always first.</b> Press F12 to see HTML, cookies and every request.</span></div>
-          <div class="tool"><a href="https://portswigger.net/burp/communitydownload" target="_blank" rel="noopener">Burp Suite Community</a><span><span class="badge install">install</span></span><span class="why"><b>Want to edit requests?</b> A "proxy" between browser and site: pause, modify, resend. Free edition.</span></div>
+          <div class="tool"><a href="https://developer.chrome.com/docs/devtools/" target="_blank" rel="noopener">Browser DevTools</a><span><span class="badge builtin">built in</span></span><span class="why"><b>Always first.</b> F12 shows the HTML, cookies and every request.</span></div>
+          <div class="tool"><a href="https://portswigger.net/burp/communitydownload" target="_blank" rel="noopener">Burp Suite Community</a><span><span class="badge install">install</span></span><span class="why"><b>Edit requests.</b> A proxy to pause, modify and resend them. Free edition.</span></div>
           <div class="tool"><a href="https://www.zaproxy.org/" target="_blank" rel="noopener">ZAP</a><span><span class="badge install">install</span></span><span class="why">Free, open-source alternative to Burp.</span></div>
-          <div class="tool"><a href="https://sqlmap.org/" target="_blank" rel="noopener">sqlmap</a><span><span class="badge install">install</span></span><span class="why"><b>For SQL injection labs.</b> Automates detecting and exploiting SQL injection flaws in authorized CTF targets.</span></div>
-          <div class="tool"><a href="https://github.com/ffuf/ffuf" target="_blank" rel="noopener">ffuf</a><span><span class="badge install">install</span></span><span class="why"><b>For web fuzzing.</b> Finds hidden paths, parameters and virtual hosts.</span></div>
-          <div class="tool"><a href="https://github.com/projectdiscovery/nuclei" target="_blank" rel="noopener">Nuclei</a><span><span class="badge install">install</span></span><span class="why"><b>Template-based scanning.</b> Checks authorized targets for vulnerabilities and misconfigurations.</span></div>
-          <div class="tool"><a href="https://cirt.net/Nikto2" target="_blank" rel="noopener">Nikto</a><span><span class="badge install">install</span></span><span class="why"><b>General web-server scan.</b> Identifies exposed files, outdated software and common risks.</span></div>
-          <div class="tool"><a href="https://curl.se/" target="_blank" rel="noopener">curl</a><span><span class="badge builtin">built in</span></span><span class="why"><b>Optional:</b> send requests from the terminal; preinstalled on Windows 10+, macOS and most Linux.</span></div>
+          <div class="tool"><a href="https://sqlmap.org/" target="_blank" rel="noopener">sqlmap</a><span><span class="badge install">install</span></span><span class="why"><b>SQL injection labs.</b> Automates finding SQLi flaws in authorized targets.</span></div>
+          <div class="tool"><a href="https://github.com/ffuf/ffuf" target="_blank" rel="noopener">ffuf</a><span><span class="badge install">install</span></span><span class="why"><b>Web fuzzing.</b> Finds hidden paths, parameters and virtual hosts.</span></div>
+          <div class="tool"><a href="https://github.com/projectdiscovery/nuclei" target="_blank" rel="noopener">Nuclei</a><span><span class="badge install">install</span></span><span class="why"><b>Template scanner.</b> Checks authorized targets for known flaws and misconfigs.</span></div>
+          <div class="tool"><a href="https://cirt.net/Nikto2" target="_blank" rel="noopener">Nikto</a><span><span class="badge install">install</span></span><span class="why"><b>Web-server scan.</b> Spots exposed files, outdated software, common risks.</span></div>
+          <div class="tool"><a href="https://curl.se/" target="_blank" rel="noopener">curl</a><span><span class="badge builtin">built in</span></span><span class="why"><b>Optional.</b> Requests from the terminal; built into Windows 10+, macOS, Linux.</span></div>
         </div>
       </div>
       <div class="card fill compact row center" style="gap:14px"><svg class="icon" style="font-size:30px"><use href="#i-alert"/></svg><p class="small" style="font-weight:600">Web CTFs are built to be attacked. Trying this on real sites without permission is illegal.</p></div>
