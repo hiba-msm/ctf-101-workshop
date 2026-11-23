@@ -16,3 +16,6 @@ node_modules/
 .env.*
 *.pem
 *.key
+
+# Generated participant site (scripts/build_participant_site.py)
+dist/

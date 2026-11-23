@@ -226,7 +226,15 @@ Corrections and improvements are welcome, especially broken links, outdated plat
 
 ### Participant access during the workshop
 
-This repository is **private**. Participants can only open it if they're invited as collaborators (GitHub → *Settings → Collaborators → Add people*; see [GitHub's guide](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/repository-access-and-collaboration/inviting-collaborators-to-a-personal-repository)). Each participant then needs a GitHub account. Making the presentation available through a single public link (e.g. GitHub Pages) would also make the content public, and that's a decision for the repository owner.
+This repository is **private**. To give participants one browser link without GitHub invitations, build a separate **participant site** containing only the presentation and the guides rendered as web pages:
+
+```bash
+python scripts/build_participant_site.py    # writes dist/ (git-ignored); needs internet, no token
+```
+
+`dist/` holds the deck plus every Markdown guide converted to HTML with GitHub's renderer. The deck's guide links point at those local pages, so nothing links back to this repository. It ends with a self-check that fails if any link or anchor is broken. Upload the `dist/` folder to any static host (e.g. Cloudflare Pages via drag-and-drop). Anyone with the resulting link can view it, so publish only after the content is approved. The pages carry a `noindex` tag to discourage search engines.
+
+Alternatively, invite participants individually as collaborators (*Settings → Collaborators → Add people*; see [GitHub's guide](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/repository-access-and-collaboration/inviting-collaborators-to-a-personal-repository)). Each participant then needs a GitHub account.
 
 ---
 
